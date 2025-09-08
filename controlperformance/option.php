@@ -1,6 +1,10 @@
 <?
-$permission=""; $usersystem=""; $mail=""; $idusersystem=0; $idstudy=0;
-
+//считывание cookie
+$permission=$_COOKIE["permission"];  
+$usersystem=$_COOKIE["usersystem"];  
+$idusersystem=$_COOKIE["idusersystem"];  
+$idstudy=$_COOKIE["idstudy"];  
+$mail=$_COOKIE["mail"];  
 
 $now=date("Y")."-".date("m")."-".date("d");    
 	

@@ -3,6 +3,77 @@ require "option.php";//файл с показателями подключени
 
 $step=$_REQUEST["step"];
 
+if ($step==1)
+{
+$login=$_POST["login"];
+$parol=$_POST["parol"];
+
+//авторизация пользователя (проверка наличие пользователя с введенными данными авторизации в базе данных)
+//выполнение запроса на выборку данных
+$SET_USER=mysqli_query($dbcnx,"select * from usersystem where login='$login' and parol='$parol'");
+$COUNT_USER=mysqli_num_rows($SET_USER);
+
+if ($COUNT_USER>0)
+{//пользователь есть
+
+		$f=mysqli_fetch_array($SET_USER);//считывание текующей записи
+		//заполнение cookie
+		$idusersystem=$f["idusersystem"];
+		setcookie ( 'idusersystem', $idusersystem); 
+		$permission=$f["permission"];	
+		setcookie ( 'permission', $permission); 
+		$usersystem=$f["usersystem"];
+		setcookie ( 'usersystem', $usersystem); 
+		$mail=$f["mail"];
+		setcookie ( 'mail', $mail); 		
+
+
+//переход в зависимости от прав доступа
+if ($permission=="Администратор")
+ {
+?>
+<script language="javascript">
+location.href='usersystem.php?step=0';
+</script>
+<?	 
+ }
+
+
+
+
+
+}
+
+
+}
+
+
+if ($step==2)
+{
+//выход из системы
+
+//очищение значений в cookie
+		$idusersystem='';
+		setcookie ( 'idusersystem', $idusersystem); 
+		$permission='';	
+		setcookie ( 'permission', $permission); 
+		$usersystem='';
+		setcookie ( 'usersystem', $usersystem); 
+		$mail='';
+		setcookie ( 'mail', $mail); 
+}
+
+
+if ( ($step==1) && ($COUNT_USER==0))
+{
+//ошибка авторизации
+?>
+<script language="javascript">
+alert("Не верный ввод!");
+location.href='index.php';
+</script>
+<?
+} 
 
 
 ?>

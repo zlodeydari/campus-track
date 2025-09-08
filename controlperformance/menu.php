@@ -18,7 +18,15 @@
 if ($permission=="Администратор")
 {
 ?>						
-                        		
+                        <li class="nav-item">
+							<a href="usersystem.php">
+								<i class="la la-user""></i>
+								
+								<p>Пользователи</p>
+								   
+
+							</a>
+						</li>		
 
 <?
 }
