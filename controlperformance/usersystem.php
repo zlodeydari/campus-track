@@ -41,6 +41,8 @@ $r=mysqli_query($dbcnx,$s);
                                           
  <div align="left">
 <input   type="button"   name="button4"    onclick="this.form.action='updusersystem.php?upd=0&step=1'; this.form.submit();" value="Добавить">
+<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updusersystem.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   
+<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы дествительно хотите удалить запись?');  if (qwest) {this.form.action='delusersystem.php'; this.form.submit();}" value="Удалить">      
    </div>            
            
 									</div>

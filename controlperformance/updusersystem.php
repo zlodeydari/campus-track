@@ -1,6 +1,4 @@
 <?
-$upd=0;
-
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=1;
 ?>
@@ -33,7 +31,7 @@ $step=$_REQUEST["step"];
 if ($step==2)
 {
 //признак редактирования
-$upd=0;
+$upd=$_REQUEST["upd"];
 //считывание данных
 $usersystem =  $_POST["usersystem"];
 $phone =  $_POST["phone"];
@@ -108,6 +106,15 @@ exit();
 }	
 	
 //выполнение запроса на редактирование или добавление данных	
+if ($upd==1)
+  {  
+	 mysqli_query($dbcnx,"UPDATE usersystem set login='$login', parol='$parol', permission='$permission', phone='$phone', usersystem='$usersystem', mail='$mail' WHERE idusersystem=$id");
+	 ?>
+	 <script language="javascript">
+	 location.href='usersystem.php?filter=0';
+	 </script>
+	 <?
+  }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx,"INSERT INTO usersystem (login, parol, phone, permission, usersystem, mail) VALUES ('$login', '$parol', '$phone', '$permission', '$usersystem', '$mail')");
 	?>
@@ -121,6 +128,15 @@ exit;
 
 $date=(date("Y")-40)."-".date("m")."-".date("d"); 
 
+$upd=$_REQUEST["upd"];
+if ($upd==1)
+{
+$Arr=$_REQUEST["Arr"];
+//phpinfo(32);
+$r=mysqli_query($dbcnx,"select * from usersystem where idusersystem="."$Arr[0]");
+
+$f=mysqli_fetch_array($r);//считывание текующей записи
+}
  
 ?>
 	<? require "menu.php"; ?>
@@ -151,15 +167,15 @@ $date=(date("Y")-40)."-".date("m")."-".date("d");
                                     <table  border="0">
                     <tr>
                       <td width="40%"><font   color="#000000" >   ФИО*: </font> </td>
-                      <td><input    name="usersystem" size="30"   type="text"  value="<? echo(""); ?>"  ></td>
+                      <td><input    name="usersystem" size="30"   type="text"  value="<? if ($upd==1) echo $f['usersystem']; else echo(""); ?>"  ></td>
                     </tr>  	                                                                   
                     <tr>
                       <td><font color="#000000" >   Телефон*: </font> </td>
-                      <td><input    name="phone" size="30"  type="text"  value="<? echo(""); ?>"  ></td>
+                      <td><input    name="phone" size="30"  type="text"  value="<? if ($upd==1) echo $f['phone']; else echo(""); ?>"  ></td>
                     </tr>  	                                                                                     
                     <tr>
                       <td><font color="#000000" > Почта*: </font> </td>
-                      <td><input    name="mail" size="30"  value="<? echo(""); ?>"   type="text" ></td>
+                      <td><input    name="mail" size="30"  value="<? if ($upd==1) echo $f['mail']; else echo(""); ?>"   type="text" ></td>
                     </tr> 
 <tr>
                       <td><font color="#000000" >   Права*: </font></td>
@@ -174,11 +190,11 @@ $date=(date("Y")-40)."-".date("m")."-".date("d");
                       </tr>                     
                     <tr>
                       <td><font color="#000000" > Логин*: </font> </td>
-                      <td><input    name="login" size="30"  value="<? echo(""); ?>"   type="text" ></td>
+                      <td><input    name="login" size="30"  value="<? if ($upd==1) echo $f['login']; else echo(""); ?>"   type="text" ></td>
                     </tr>  	                      			  
                     <tr>
                       <td><font color="#000000" >  Пароль*: </font> </td>
-                      <td><input    name="parol" size="30" value="<? echo(""); ?>"   type="text" ></td>
+                      <td><input    name="parol" size="30" value="<? if ($upd==1) echo $f['parol']; else echo(""); ?>"   type="text" ></td>
                     </tr>      
                   
                                    
