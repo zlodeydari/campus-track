@@ -40,6 +40,7 @@ $r=mysqli_query($dbcnx,$s);
 										<div>Перечень пользователей</div>
                                           
  <div align="left">
+<input   type="button"   name="button4"    onclick="this.form.action='updusersystem.php?upd=0&step=1'; this.form.submit();" value="Добавить">
    </div>            
            
 									</div>
