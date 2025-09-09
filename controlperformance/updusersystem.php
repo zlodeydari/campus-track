@@ -46,6 +46,66 @@ if ($upd==1)
      $id=$_REQUEST["id"];
 
 
+$error=0;
+
+//формируем сообщение об ошибке
+if ( (trim($login)=="") or (trim($phone)=="") or (trim($usersystem)=="") or (trim($mail)=="") or (trim($parol)=="") ) 
+$error=1;
+
+if (trim($usersystem)=="")
+$alert=$alert."Введите данные в поле 'ФИО'! <br>";
+	
+if (trim($mail)=="")
+$alert=$alert."Введите данные в поле 'Почта'! <br>";
+
+if (trim($phone)=="")
+$alert=$alert."Введите данные в поле 'Телефон'! <br>";
+
+if (trim($login)=="")
+$alert=$alert."Введите данные в поле 'Логин'! <br>";
+
+if (trim($parol)=="")
+$alert=$alert."Введите данные в поле 'Пароль'! <br>";
+
+
+if ((strlen ($login)>$shortstring) or (strlen ($usersystem)>$shortstring) or (strlen ($mail)>$shortstring) or (strlen ($parol)>$shortstring) or (strlen ($login)<$requiredstring) or (strlen ($parol)<$requiredstring) ) 
+$error=1;
+
+
+
+
+if (strlen ($usersystem)>$shortstring)
+$alert=$alert."Введите корректные данные (<$shortstring) в поле 'ФИО'! <br>";
+
+if (strlen ($mail)>$shortstring)
+$alert=$alert."Введите корректные данные (<$shortstring) в поле 'Почта'! <br>";
+
+if (strlen ($phone)>$shortstring)
+$alert=$alert."Введите корректные данные (<$shortstring) в поле 'Телефон'! <br>";
+
+if ((strlen ($login)>$shortstring) or (strlen ($login)<$requiredstring))
+$alert=$alert."Введите корректные данные ($requiredstring-$shortstring) в поле 'Логин'! <br>";
+
+if ((strlen ($parol)>$shortstring) or (strlen ($parol)<$requiredstring))
+$alert=$alert."Введите корректные данные ($requiredstring-$shortstring) в поле 'Пароль'! <br>";
+
+
+
+if ($error==1)
+{
+$alert="Ошибка ввода данных!<br>".$alert;
+
+?>
+		<script language="javascript">
+
+var text = "<? echo $alert;?>";
+text=text.replace(new RegExp("<br>",'g'),"\n");
+alert(text);
+history.back();
+		</script>
+<?
+exit();
+}	
 	
 //выполнение запроса на редактирование или добавление данных	
   {//формирование SQL-запроса на добавление данных
