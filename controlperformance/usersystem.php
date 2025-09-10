@@ -26,7 +26,32 @@ exit;
 }
 
 
+$filter=$_GET["filter"];//считывание параметра фильтра
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$sort=$_GET["sort"];//считывание параметра фильтра		
+
 $s="SELECT usersystem.* FROM usersystem";
+
+if (($value1!="") and ($filter==1))/*есть ли фильтрация данных*/
+{
+$s=$s." where UPPER(usersystem)" ;
+if ($value1!="Все")
+$s=$s." LIKE UPPER('%$value1"."%')  ";
+else
+$s=$s."=UPPER(usersystem) ";
+
+}
+
+		 
+
+
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+
+//выполнение хапроса на выборку данных
 $r=mysqli_query($dbcnx,$s);
 	
 
@@ -38,7 +63,27 @@ $r=mysqli_query($dbcnx,$s);
 								
 									<div>
 										<div>Перечень пользователей</div>
-                                          
+                                        <div align="right">	
+Сортировка:
+				<select name="sortname"  style="height:30; width:auto" onChange="this.form.action='usersystem.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
+				  <option value="usersystem"  <? if ($fieldsort=="usersystem") {?> selected="selected" <? }?>>ФИО </option>
+                  <option value="phone"  <? if ($fieldsort=="phone") {?> selected="selected" <? }?> >Телефон </option>
+                  <option value="mail"  <? if ($fieldsort=="mail") {?> selected="selected" <? }?> >Почта </option>
+                  <option value="permission"  <? if ($fieldsort=="permission") {?> selected="selected" <? }?> >Права доступа </option>
+                  <option value="login"  <? if ($fieldsort=="ligin") {?> selected="selected" <? }?> >Логин </option>
+                  <option value="parol"  <? if ($fieldsort=="parol") {?> selected="selected" <? }?> >Пароль </option>
+                </select>            	
+&nbsp;&nbsp;ФИО: 
+                
+				<input   name="FilterValue1"  onFocus="if (this.value=='Все') this.value=''"  value="<? if ($filter==1)/*есть ли фильтрация данных*/ echo "$value1"; else echo(""); ?>" onBlur="checkFilterValue1()"  type="text">
+
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='usersystem.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='usersystem.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+                
+           <br>
+             </div>  
  <div align="left">
 <input   type="button"   name="button4"    onclick="this.form.action='updusersystem.php?upd=0&step=1'; this.form.submit();" value="Добавить">
 <input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updusersystem.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   
