@@ -89,6 +89,43 @@ $alert=$alert."Введите корректные данные ($requiredstring
 
 
 
+$s="select * from usersystem where login='$login'";
+if ($upd==1)
+	$s=$s." and idusersystem!=$id";
+
+$SET_user=mysqli_query($dbcnx,$s);
+$COUNT_user=mysqli_num_rows($SET_user);
+
+if ($COUNT_user!=0)
+{
+	$error=1;
+	$alert=$alert."Пользователь с таким логином уже существует! <br>";
+} 
+
+
+
+if ( ( strpos($mail, "@")==0)  or ( strpos($mail, ".")==0) )
+{
+	$error=1;
+	$alert=$alert."Введите корректный адрес электронной почты! <br>";
+}
+
+$s="select * from usersystem where mail='$mail'";
+if ($upd==1)
+	$s=$s." and idusersystem!=$id";
+
+$SET_user=mysqli_query($dbcnx,$s);
+$COUNT_user=mysqli_num_rows($SET_user);
+
+if ($COUNT_user!=0)
+{
+	$error=1;
+	$alert=$alert."Пользователь с таким адресом электронной почты уже существует! <br>";
+} 
+
+
+
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;
