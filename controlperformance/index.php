@@ -90,20 +90,82 @@ location.href='index.php';
 </head>
 <body>
 
-	<? require "menu.php"; ?>
-<main>
-<form method="post" >
-						<input     name='login' placeholder='Логин *'/> <br>
-						<input    type="password"    name='parol' placeholder='Пароль *'/>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+			<div class="sidebar">
+				<div class="scrollbar-inner sidebar-wrapper">
+					<div class="user">
+
+
+					</div>
+					
+				</div>
+			</div>
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				<div class="card" align=center>
+<br>
+<div class="card-header">
+
+</div>
+<div class="card-title"> Успеваемость студентов - Авторизация пользователя</div>
+<div class="card-body">
+					<form method="post" >
+						<input class="form-control input-full"     name='login' placeholder='Логин *'/> <br>
+						<input  class="form-control input-full"   type="password"    name='parol' placeholder='Пароль *'/>
 
 <br>
 <div align="center">
-                            <input    type="button" value="Войти" onclick="this.form.action='index.php?step=1'; this.form.submit();" >       
-               		    <input    type="button" value="Очистить" onclick="this.form.action='index.php'; this.form.submit();" >     
+                            <input   class="btn btn-success"  type="button" value="Войти" onclick="this.form.action='index.php?step=1'; this.form.submit();" >       
+               		    <input   class="btn btn-danger"  type="button" value="Очистить" onclick="this.form.action='index.php'; this.form.submit();" >     
 </div>
 <br>							
 						
 					</form>
-</main>
+					</div>
+					</div>
+					</div>					
+					</div>
+					</div>
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>					

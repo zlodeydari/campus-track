@@ -176,48 +176,70 @@ $f=mysqli_fetch_array($r);//считывание текующей записи
 }
  
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					Администратор
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+<?
+require "menu.php";//файл с меню
+?>
+          <div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				
+                     <div class="card">
 <form name="form2"  method="post"  >
 
 								
-									<div>
+									<div class="card-header">
 	 								<? 
 									if ($upd==0){ 
 									?>
-										<div>Добавление пользователя</div>
+										<div class="card-title">Добавление пользователя</div>
                                     <?
 									}
 									else
 									{
 									?>
-										<div>Редактирование пользователя (<? echo $f["usersystem"];?>)</div>
+										<div class="card-title">Редактирование пользователя (<? echo $f["usersystem"];?>)</div>
 									<?
                                     }
 									?>  
                                          
 									</div>
                                     
-									<div>
+									<div class="card-body">
 								
 									
                                     <table  border="0">
                     <tr>
                       <td width="40%"><font   color="#000000" >   ФИО*: </font> </td>
-                      <td><input    name="usersystem" size="30"   type="text"  value="<? if ($upd==1) echo $f['usersystem']; else echo(""); ?>"  ></td>
+                      <td><input class="form-control input-full"    name="usersystem" size="30"   type="text"  value="<? if ($upd==1) echo $f['usersystem']; else echo(""); ?>"  ></td>
                     </tr>  	                                                                   
                     <tr>
                       <td><font color="#000000" >   Телефон*: </font> </td>
-                      <td><input    name="phone" size="30"  type="text"  value="<? if ($upd==1) echo $f['phone']; else echo(""); ?>"  ></td>
+                      <td><input class="form-control input-full"    name="phone" size="30"  type="text"  value="<? if ($upd==1) echo $f['phone']; else echo(""); ?>"  ></td>
                     </tr>  	                                                                                     
                     <tr>
                       <td><font color="#000000" > Почта*: </font> </td>
-                      <td><input    name="mail" size="30"  value="<? if ($upd==1) echo $f['mail']; else echo(""); ?>"   type="text" ></td>
+                      <td><input class="form-control input-full"    name="mail" size="30"  value="<? if ($upd==1) echo $f['mail']; else echo(""); ?>"   type="text" ></td>
                     </tr> 
 <tr>
                       <td><font color="#000000" >   Права*: </font></td>
                       <td>
-                 <select  name="permission"  style="height:22; width:auto"    >
+                 <select class="form-control"  name="permission"  style="height:22; width:auto"    >
 					<option   value="Администратор"  <?	if (($upd==1)&& ($f['permission']=="Администратор")) echo "selected"; ?> > Администратор </option>	   
 			                <option  value="Студент" <?	if (($upd==1)&& ($f['permission']=="Студент")) echo "selected"; ?> >Студент </option>
 					<option  value="Преподаватель" <?	if (($upd==1)&& ($f['permission']=="Преподаватель")) echo "selected"; ?> >Преподаватель </option>
@@ -227,25 +249,53 @@ $f=mysqli_fetch_array($r);//считывание текующей записи
                       </tr>                     
                     <tr>
                       <td><font color="#000000" > Логин*: </font> </td>
-                      <td><input    name="login" size="30"  value="<? if ($upd==1) echo $f['login']; else echo(""); ?>"   type="text" ></td>
+                      <td><input class="form-control input-full"    name="login" size="30"  value="<? if ($upd==1) echo $f['login']; else echo(""); ?>"   type="text" ></td>
                     </tr>  	                      			  
                     <tr>
                       <td><font color="#000000" >  Пароль*: </font> </td>
-                      <td><input    name="parol" size="30" value="<? if ($upd==1) echo $f['parol']; else echo(""); ?>"   type="text" ></td>
+                      <td><input class="form-control input-full"    name="parol" size="30" value="<? if ($upd==1) echo $f['parol']; else echo(""); ?>"   type="text" ></td>
                     </tr>      
                   
                                    
                       
                   </table>
 <br>
-				<input   type="button"   name="button"    onclick="this.form.action='updusersystem.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>'; this.form.submit();"   value="Сохранить" width="500">
-				<input   type="button"  name="button"   onClick="javascript:history.back();"  value="Отмена">
+				<input class="btn btn-success"   type="button"   name="button"    onclick="this.form.action='updusersystem.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>'; this.form.submit();"   value="Сохранить" width="500">
+				<input class="btn btn-danger"   type="button"  name="button"   onClick="javascript:history.back();"  value="Отмена">
                                     
                                     
                                     	
 									</div>
 
-      </form>
-</main>
+      </form>	            
+           					</div>
+                            
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
