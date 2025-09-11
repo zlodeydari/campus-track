@@ -35,8 +35,24 @@ if ($permission=="Администратор")
 if ($permission=="Декан")
 {
 ?>				 						     						
-					
-					
+			<li class="nav-item">
+							<a href="spec.php">
+								<i class="la la-folder"></i>
+								
+								<p>Специальности</p>
+								        
+
+							</a>
+						</li>		
+			<li class="nav-item">
+							<a href="squad.php">
+								<i class="la la-weixin"></i>
+								
+								<p>Группы</p>
+								        
+
+							</a>
+						</li>		
 				
 
 			

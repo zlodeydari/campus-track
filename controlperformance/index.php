@@ -42,6 +42,14 @@ location.href='usersystem.php?step=0';
 
 
 
+if ($permission=="Декан")
+ {
+?>
+<script language="javascript">
+location.href='spec.php?step=0';
+</script>
+<?	 
+ } 
 }
 
 
