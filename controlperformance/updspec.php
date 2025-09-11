@@ -71,6 +71,15 @@ exit();
 }	
 
 //выполнение запроса на редактирование или добавление данных	
+if ($upd==1)
+  {  
+	 mysqli_query($dbcnx,"UPDATE spec set spec='$spec' WHERE idspec=$id");
+	 ?>
+	 <script language="javascript">
+	 location.href='spec.php?filter=0';
+	 </script>
+	 <?
+  }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx,"INSERT INTO spec (spec) VALUES ('$spec')");
 	?>
@@ -83,7 +92,15 @@ exit;
 }
 
 
-$upd=0;
+$upd=$_REQUEST["upd"];
+if ($upd==1)
+{
+$Arr=$_REQUEST["Arr"];
+
+$r=mysqli_query($dbcnx,"select * from spec where idspec="."$Arr[0]");
+$f=mysqli_fetch_array($r);//считывание текующей записи
+
+}
  
 ?>
 	<? require "menu.php"; ?>

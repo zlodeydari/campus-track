@@ -1,6 +1,4 @@
 <?
-$upd=0;
-
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=3;
 
@@ -28,7 +26,7 @@ $date=date("Y")."-".date("m")."-".date("d");
 
 if ($step==2)
 {
-$upd=0;
+$upd=$_REQUEST["upd"];
 
 $datebirth =  $_POST["datebirth"];
 $idspec =  $_POST["idspec"];
@@ -63,6 +61,15 @@ exit();
 }	
 
 
+if ($upd==1)
+  {  
+     $id=$_REQUEST["id"];
+     	 $s="UPDATE squad set idspec='$idspec', department='$department', squad='$squad' WHERE idsquad=$id";
+	 mysqli_query($dbcnx,$s);
+	 
+
+
+  }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx, "INSERT INTO squad ( department, idspec, squad) VALUES ('$department', '$idspec', '$squad')");
 
@@ -75,6 +82,15 @@ exit();
 	 <?
 }
 
+	 $upd=$_REQUEST["upd"];
+
+	 if ($upd==1)
+		{
+	 $Arr=$_REQUEST["arrsquad"];
+	 $idsquad=$Arr[0];
+	 $r=mysqli_query($dbcnx, "select * from squad where idsquad=$idsquad");
+	 $f=mysqli_fetch_array($r);
+	 }
      ?>
 
 
@@ -119,7 +135,7 @@ exit();
           
                         <tr>
                       <td><font color="#000000" >  Группа: </font> </td>
-                      <td><input    name="squad"  value="<? echo(""); ?>"   type="text" ></td>
+                      <td><input    name="squad"  value="<? if ($upd==1) echo $f['squad']; else echo(""); ?>"   type="text" ></td>
                     </tr>    
              
  <tr> 
@@ -147,7 +163,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
  
                     <tr>
                       <td><font color="#000000" >  Отделение: </font> </td>
-                      <td><input    name="department"  value="<? echo(""); ?>"   type="text" ></td>
+                      <td><input    name="department"  value="<? if ($upd==1) echo $f['department']; else echo(""); ?>"   type="text" ></td>
                     </tr>    
                       
                   </table>
