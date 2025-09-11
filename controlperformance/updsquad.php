@@ -35,6 +35,32 @@ $idspec =  $_POST["idspec"];
 $squad =  $_POST["squad"];
 $department =  $_POST["department"];
 
+$error=0;
+
+//формируем сообщение об ошибке
+if ( (trim($squad)=="")  )
+$error=1;
+
+if (trim($squad)=="")
+$alert=$alert."Введите данные в поле 'Группа'! <br>";
+
+
+
+if ($error==1)
+{
+$alert="Ошибка ввода данных!<br>".$alert;
+
+?>
+<meta charset="utf-8">
+<script language="javascript">
+var text = "<? echo $alert;?>";
+text=text.replace(new RegExp("<br>",'g'),"\n");
+alert(text);
+history.back();
+</script>
+<?
+exit();
+}	
 
 
   {//формирование SQL-запроса на добавление данных

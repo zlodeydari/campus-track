@@ -1,6 +1,4 @@
 <?
-$upd=0;
-
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=2;
 ?>
@@ -34,7 +32,7 @@ $step=$_REQUEST["step"];
 if ($step==2)
 {
 //признак редактирования
-$upd=0;
+$upd=$_REQUEST["upd"];
 
 //считывание данных
 $spec =  $_POST["spec"];
@@ -45,6 +43,32 @@ $spec =  $_POST["spec"];
 if ($upd==1)
      $id=$_REQUEST["id"];
 
+$error=0;
+
+//формируем сообщение об ошибке
+if ( (trim($spec)=="")  )
+$error=1;
+
+if (trim($spec)=="")
+$alert=$alert."Введите данные в поле 'Специальность'! <br>";
+
+
+
+if ($error==1)
+{
+$alert="Ошибка ввода данных!<br>".$alert;
+
+?>
+		<script language="javascript">
+
+var text = "<? echo $alert;?>";
+text=text.replace(new RegExp("<br>",'g'),"\n");
+alert(text);
+history.back();
+		</script>
+<?
+exit();
+}	
 
 //выполнение запроса на редактирование или добавление данных	
   {//формирование SQL-запроса на добавление данных
@@ -59,6 +83,7 @@ exit;
 }
 
 
+$upd=0;
  
 ?>
 	<? require "menu.php"; ?>
@@ -89,7 +114,7 @@ exit;
                                     <table  border="0">
                     <tr>
                       <td width="25%"><font   color="#000000" >   Специальность*: </font> </td>
-                      <td><input    name="spec" size="55"   type="text"  value="<? echo(""); ?>"  ></td>
+                      <td><input    name="spec" size="55"   type="text"  value="<? if ($upd==1) echo htmlentities($f['spec']); else echo(""); ?>"  ></td>
                     </tr>  	   
                                                                                
 
