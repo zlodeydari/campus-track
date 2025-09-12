@@ -5302,12 +5302,105 @@ body {
 .form-radio-input:disabled + .form-radio-sign { opacity: .5; }
 
 /*     Input    */
-.form-group, .form-check { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; }
-.form-control { border: 1px solid #ccc; border-radius: 3px; padding: 8px; }
-.form-control:focus { border-color: #4d7cfe; }
-.input-fixed { width: 200px; }
-.form-control.input-full { width: 100%; }
+.form-group, .form-check {
+  margin-bottom: 0;
+  padding: 15px 10px;
+}
+
+.form-group label, .form-check label {
+  margin-bottom: .5rem !important;
+  color: #3f4047 !important;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.form-inline label {
+  margin-bottom: 0 !important;
+}
+
+.input-fixed {
+  width: 200px;
+}
+
+.form-control.input-full {
+  width: 100% !important;
+}
+
+.has-success .form-control {
+  border-color: #59d05d;
+  color: #59d05d;
+}
+
+.has-error .form-control {
+  border-color: #ff646d;
+  color: #ff646d;
+}
+
+.has-feedback {
+  position: relative;
+}
+
+.form-control-feedback {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+}
+
+.has-success .form-control-feedback {
+  color: #59d05d;
+}
+
+.has-error .form-control-feedback {
+  color: #ff646d;
+}
+
+.input-group.has-icon {
+  border-radius: .25rem;
+  border: 1px solid #ced4da;
+}
+.input-group.has-success, .input-group.has-icon.has-success {
+  border-color: 1px solid #59d05d !important;
+  color: #59d05d;
+}
+.input-group.has-error {
+  border: 1px solid #ff646d !important;
+  color: #ff646d;
+}
+.input-group.has-icon.has-error {
+  border: 1px solid #ff646d !important;
+  color: #ff646d;
+}
+.input-group.has-icon .form-control {
+  border-radius: .25rem;
+  border: 0px;
+  position: relative;
+}
+.input-group.has-icon .input-group-icon {
+  background: transparent;
+  border: 0px;
+}
+
+.input-square {
+  border-radius: 0px !important;
+}
+
+.input-pill {
+  border-radius: 1.3rem !important;
+}
+
+.input-solid {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+.form-control:disabled, .form-control[readonly] {
+  opacity: 0.6 !important;
+}
 
 /*     Table    */
 .table { width: 100%; color: #555; border-collapse: collapse; }

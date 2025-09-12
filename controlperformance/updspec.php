@@ -103,35 +103,85 @@ $f=mysqli_fetch_array($r);//считывание текующей записи
 }
  
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			<nav class="navbar navbar-header navbar-expand-lg">
+				<div class="container-fluid">
+					
+
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+
+						
+						<li class="nav-item dropdown">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <span ><? echo $usersystem;?></span></span> </a>
+							<ul class="dropdown-menu dropdown-user">
+								<li>
+									<div class="user-box">
+										
+										<div class="u-text">
+											<h4><? echo $usersystem;?></h4>
+											<p class="text-muted"><? echo $permission;?></p>
+											<p class="text-muted"><? echo $mail;?></p>
+                                        </div>
+									</div>
+								</li>
+									<div class="dropdown-divider"></div>
+									
+									<a class="dropdown-item" href="index.php?step=2"><i class="fa fa-power-off"></i> Выход</a>
+								</ul>
+								<!-- /.dropdown-user -->
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+<?
+require "menu.php";//файл с меню
+?>
+          <div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				
+                     <div class="card">
 <form name="form2"  method="post"  >
 
 								
-									<div>
+									<div class="card-header">
 	 								<? 
 									if ($upd==0){ 
 									?>
-										<div>Добавление специальности</div>
+										<div class="card-title">Добавление специальности</div>
                                     <?
 									}
 									else
 									{
 									?>
-										<div>Редактирование специальности (<? echo $f["spec"];?>)</div>
+										<div class="card-title">Редактирование специальности (<? echo $f["spec"];?>)</div>
 									<?
                                     }
 									?>  
                                          
 									</div>
                                     
-									<div>
+									<div class="card-body">
 								
 									
                                     <table  border="0">
                     <tr>
                       <td width="25%"><font   color="#000000" >   Специальность*: </font> </td>
-                      <td><input    name="spec" size="55"   type="text"  value="<? if ($upd==1) echo htmlentities($f['spec']); else echo(""); ?>"  ></td>
+                      <td><input class="form-control input-full"    name="spec" size="55"   type="text"  value="<? if ($upd==1) echo htmlentities($f['spec']); else echo(""); ?>"  ></td>
                     </tr>  	   
                                                                                
 
@@ -141,14 +191,56 @@ $f=mysqli_fetch_array($r);//считывание текующей записи
                       
                   </table>
 <br>
-				<input   type="button"   name="button"    onclick="this.form.action='updspec.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>'; this.form.submit();"   value="Сохранить" width="500">
-				<input   type="button"  name="button"   onClick="javascript:history.back();"  value="Отмена">
+				<input class="btn btn-success"   type="button"   name="button"    onclick="this.form.action='updspec.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>'; this.form.submit();"   value="Сохранить" width="500">
+				<input class="btn btn-danger"   type="button"  name="button"   onClick="javascript:history.back();"  value="Отмена">
                                     
                                     
                                     	
 									</div>
 
-      </form>
-</main>
+      </form>	            
+           					</div>
+                            
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				<footer class="footer">
+					<div class="container-fluid"  >
+						<nav class="pull-left">
+							<ul class="nav">
+
+							</ul>
+						</nav>
+						<div class="copyright ml-auto">
+							<p><? echo Date("Y");?>, Все права защищены</p>
+						</div>				
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
