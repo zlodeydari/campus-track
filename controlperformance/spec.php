@@ -46,7 +46,11 @@ $s=$s."=UPPER(spec) ";
 		 
 
 
-
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
 
 $r=mysqli_query($dbcnx,$s);
 	
@@ -57,11 +61,16 @@ $r=mysqli_query($dbcnx,$s);
 <form name="form2"  method="post"  >
 
 								
-									<div>
-										<div>Перечень специальностей</div>
+									<div class="card-header">
+										<div class="card-title">Перечень специальностей</div>
                                         <div align="right">	
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='spec.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
+				  <option value="spec"  <? if ($fieldsort=="spec") {?> selected="selected" <? }?>>Специальность </option>
 
-				            	
+
+
+                </select>            	
 &nbsp;&nbsp;Специальность: 
                 
 				<input   name="FilterValue1"  onFocus="if (this.value=='Все') this.value=''"  value="<? if ($filter==1)/*есть ли фильтрация данных*/ echo "$value1"; else echo(""); ?>" onBlur="checkFilterValue1()"  type="text">
@@ -74,15 +83,15 @@ $r=mysqli_query($dbcnx,$s);
            <br>
              </div>  
  <div align="left">
-<input   type="button"   name="button4"    onclick="this.form.action='updspec.php?upd=0&step=1'; this.form.submit();" value="Добавить">
-<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updspec.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   
-<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы дествительно хотите удалить запись?');  if (qwest) {this.form.action='delspec.php'; this.form.submit();}" value="Удалить">      
+<input   type="button"  class="btn btn-success"  name="button4"    onclick="this.form.action='updspec.php?upd=0&step=1'; this.form.submit();" value="Добавить">
+<input   type="button"  class="btn btn-success"  name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updspec.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   
+<input   type="button"  class="btn btn-danger"  name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы дествительно хотите удалить запись?');  if (qwest) {this.form.action='delspec.php'; this.form.submit();}" value="Удалить">      
    </div>            
            
 									</div>
                                     
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
 													<th scope="col">#</th>
@@ -101,9 +110,9 @@ $r=mysqli_query($dbcnx,$s);
 				echo "<tr>";
 ?>
 				<td>
-                <label>
-				<input type="radio" name="Arr[]" value=<? echo $f["idspec"];?>  <? if ($i==0) echo "checked=checked";?>>
-				<span></span>
+                <label class="form-radio-input">
+				<input class="form-radio-input" type="radio" name="Arr[]" value=<? echo $f["idspec"];?>  <? if ($i==0) echo "checked=checked";?>>
+				<span class="form-radio-sign"></span>
                 </label>
                 </td>
                                                 <?

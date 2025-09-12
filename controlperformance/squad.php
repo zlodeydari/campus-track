@@ -54,7 +54,13 @@ if ($value2!="Все") /*есть ли фильтрация данных*/
 }
 
 
-
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by spec";
 
 $r=mysqli_query($dbcnx,$s);
 
@@ -64,11 +70,15 @@ $r=mysqli_query($dbcnx,$s);
 <form name="form2"  method="post"  >
 
 								
-									<div>
-										<div>Перечень групп</div>         
+									<div class="card-header">
+										<div class="card-title">Перечень групп</div>         
      		<div align="right">	
-
-				  
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='squad.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >  
+	                    		<option value="squad"  <? if ($fieldsort=="squad") {?> selected="selected" <? }?>>Группа </option>
+					<option value="spec"  <? if ($fieldsort=="spec") {?> selected="selected" <? }?>>Специальность </option>		                    		                                 
+					<option value="department"  <? if ($fieldsort=="department") {?> selected="selected" <? }?>>Отделение </option>							                                                                             
+			  </select>  
                             
     &nbsp;&nbsp;Специальность: 
 			
@@ -109,16 +119,16 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
 
  <div align="left">
- <input  type="button"  name="button4"    onclick="this.form.action='updsquad.php?upd=0&step=1'; this.form.submit();" value="Добавить">
- <input  type="button"   name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='updsquad.php?upd=1&step=1'; this.form.submit();" value="Редактирование"> 
- <input   type="button"  name="button" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы действительно хотите удалить запись?');  if (qwest) {this.form.action='delsquad.php'; this.form.submit();}" value="Удалить">    
+ <input  type="button" class="btn btn-success"  name="button4"    onclick="this.form.action='updsquad.php?upd=0&step=1'; this.form.submit();" value="Добавить">
+ <input  type="button" class="btn btn-success"   name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='updsquad.php?upd=1&step=1'; this.form.submit();" value="Редактирование"> 
+ <input  class="btn btn-danger"  type="button"  name="button" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы действительно хотите удалить запись?');  if (qwest) {this.form.action='delsquad.php'; this.form.submit();}" value="Удалить">    
 
 
    </div>            
            
 									</div>
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
 		<th scope="col">&nbsp;</th>                                   
@@ -143,9 +153,9 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
 ?>			 
 				<td>
-                <label>
-				<input type="radio" name="arrsquad[]" value=<? echo $f["idsquad"];?>  <? if (($i==0) || ($f["idsquad"]==$idsquad))  echo "checked=checked";?>>
-				<span> <? echo $f["idsquad"];?></span>
+                <label class="form-radio-input">
+				<input class="form-radio-input" type="radio" name="arrsquad[]" value=<? echo $f["idsquad"];?>  <? if (($i==0) || ($f["idsquad"]==$idsquad))  echo "checked=checked";?>>
+				<span class="form-radio-sign"> <? echo $f["idsquad"];?></span>
                 </label>
                 </td>			
 				<?
