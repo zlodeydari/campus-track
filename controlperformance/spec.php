@@ -27,7 +27,27 @@ exit;
 }
 
 
+$filter=$_GET["filter"];//считывание параметра фильтра
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$sort=$_GET["sort"];//считывание параметра фильтра		
+//выполнение запроса на выборку данных
 $s="SELECT spec.* FROM spec ";
+
+if (($value1!="") and ($filter==1))/*есть ли фильтрация данных*/
+{
+$s=$s." WHERE UPPER(spec)" ;
+if ($value1!="Все")
+$s=$s." LIKE UPPER('%$value1"."%')  ";
+else
+$s=$s."=UPPER(spec) ";
+
+}
+
+		 
+
+
+
+
 $r=mysqli_query($dbcnx,$s);
 	
 
@@ -39,7 +59,20 @@ $r=mysqli_query($dbcnx,$s);
 								
 									<div>
 										<div>Перечень специальностей</div>
-                                          
+                                        <div align="right">	
+
+				            	
+&nbsp;&nbsp;Специальность: 
+                
+				<input   name="FilterValue1"  onFocus="if (this.value=='Все') this.value=''"  value="<? if ($filter==1)/*есть ли фильтрация данных*/ echo "$value1"; else echo(""); ?>" onBlur="checkFilterValue1()"  type="text">
+
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='spec.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='spec.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+                
+           <br>
+             </div>  
  <div align="left">
 <input   type="button"   name="button4"    onclick="this.form.action='updspec.php?upd=0&step=1'; this.form.submit();" value="Добавить">
 <input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updspec.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   

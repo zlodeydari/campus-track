@@ -27,7 +27,35 @@ exit;
  
 
 
+$filter=$_GET["filter"];//считывание параметра фильтра
+$sort=$_GET["sort"];//считывание параметра фильтра		
+
+if ($filter==0)/*есть ли фильтрация данных*/
+{
+$value2 = "Все"; 
+}
+
+
 $s="SELECT squad.*, spec FROM squad INNER JOIN spec ON spec.idspec=squad.idspec where idsquad=idsquad ";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+$fieldfind = $_POST['findname'];//первое поле
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$value2 = $_POST['FilterValue2'];//значение первого поля
+
+if ($value1!="Все")
+$s=$s." and UPPER($fieldfind) LIKE UPPER('%$value1"."%')  ";
+else
+$s=$s." and $fieldfind=$fieldfind ";
+
+if ($value2!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and spec.idspec= $value2 ";	
+}
+
+
+
+
 $r=mysqli_query($dbcnx,$s);
 
 	 ?>
@@ -38,7 +66,46 @@ $r=mysqli_query($dbcnx,$s);
 								
 									<div>
 										<div>Перечень групп</div>         
-     		   
+     		<div align="right">	
+
+				  
+                            
+    &nbsp;&nbsp;Специальность: 
+			
+<select  name="FilterValue2"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from spec");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idspec'];
+	if ($m ['idspec']==$value2)
+	 echo " selected=selected";
+	echo ">".$m["spec"];
+	echo "</option>";	 		
+  }
+  
+?>	
+ </select>                                       
+
+    &nbsp;                        	
+по полю 
+ &nbsp;  
+				<select name="findname"  style="height:22; width:auto"  >
+	                    		<option value="squad"  <? if ($fieldfind=="squad") {?> selected="selected" <? }?>>Группа </option>                    		                                 
+					<option value="department"  <? if ($fieldfind=="department") {?> selected="selected" <? }?>>Отделение </option>	                             
+			  </select>  
+                
+				<input   name="FilterValue1"  onFocus="if (this.value=='Все') this.value=''"  value="<? if ($filter==1)/*есть ли фильтрация данных*/ echo "$value1"; else echo("Все"); ?>" onBlur="checkFilterValue1()"  type="text">
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='squad.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='squad.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+           <br>            
+        </div>   
 
 
  <div align="left">
