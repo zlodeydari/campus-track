@@ -53,7 +53,15 @@ if ($permission=="Декан")
 
 							</a>
 						</li>		
-				
+			<li class="nav-item">
+							<a href="student.php">
+								<i class="la la-tasks"></i>
+								
+								<p>Студенты</p>
+								        
+
+							</a>
+						</li>	
 
 			
 

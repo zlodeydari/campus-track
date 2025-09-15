@@ -28,6 +28,29 @@ INSERT INTO `squad` (`idsquad`, `squad`, `department`, `idspec`) VALUES
 (5, '14АВ3', 'Дневное', 1),
 (6, '14АВ5', 'Дневное', 2);
 
+CREATE TABLE `student` (
+  `ticket` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `student` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `idstudent` int(11) NOT NULL,
+  `idsquad` int(11) NOT NULL,
+  `datebirth` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO `student` (`ticket`, `student`, `idstudent`, `idsquad`, `datebirth`) VALUES
+('112233', 'Сергеев АВ', 1, 1, '2009-05-04'),
+('241123', 'Аляпин ВА', 2, 2, '2008-05-03'),
+('384732', 'Потапов ВА', 3, 3, '2009-05-03'),
+('645645', 'Макарова ПР', 4, 3, '2009-03-05'),
+('112233', 'Сергеева АВ', 5, 1, '2009-05-04'),
+('656565', 'Михнин ВА', 6, 1, '2008-05-11'),
+('554445', 'Фет  ВА', 7, 6, '2009-03-03'),
+('896667', 'Плужков ПР', 8, 6, '2009-03-05'),
+('775566', 'Крюк  ВА', 9, 4, '2009-01-03'),
+('889955', 'Мелихова ПР', 10, 4, '2009-03-05'),
+('444455', 'Круг  ВА', 11, 5, '2009-05-03'),
+('445666', 'Мелихов ПР', 12, 5, '2009-03-05'),
+('3453254', 'Петрук ВА', 13, 1, '1999-09-25');
+
 CREATE TABLE `usersystem` (
   `idusersystem` int(11) NOT NULL,
   `usersystem` varchar(40) COLLATE utf8_bin DEFAULT NULL,
@@ -51,11 +74,21 @@ ALTER TABLE `squad`
   ADD PRIMARY KEY (`idsquad`),
   ADD KEY `idspec` (`idspec`);
 
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`idstudent`),
+  ADD KEY `idsquad` (`idsquad`);
+
 ALTER TABLE `spec`
   MODIFY `idspec` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `squad`
   MODIFY `idsquad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
+ALTER TABLE `student`
+  MODIFY `idstudent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 ALTER TABLE `squad`
   ADD CONSTRAINT `squad_ibfk_1` FOREIGN KEY (`idspec`) REFERENCES `spec` (`idspec`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `student`
+  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`idsquad`) REFERENCES `squad` (`idsquad`) ON DELETE CASCADE ON UPDATE CASCADE;
