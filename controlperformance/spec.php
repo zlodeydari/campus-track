@@ -56,8 +56,58 @@ $r=mysqli_query($dbcnx,$s);
 	
 
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			<nav class="navbar navbar-header navbar-expand-lg">
+				<div class="container-fluid">
+					
+
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+
+						
+						<li class="nav-item dropdown">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <span ><? echo $usersystem;?></span></span> </a>
+							<ul class="dropdown-menu dropdown-user">
+								<li>
+									<div class="user-box">
+										
+										<div class="u-text">
+											<h4><? echo $usersystem;?></h4>
+											<p class="text-muted"><? echo $permission;?></p>
+											<p class="text-muted"><? echo $mail;?></p>
+                                        </div>
+									</div>
+								</li>
+									<div class="dropdown-divider"></div>
+									
+									<a class="dropdown-item" href="index.php?step=2"><i class="fa fa-power-off"></i> Выход</a>
+								</ul>
+								<!-- /.dropdown-user -->
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+<?
+require "menu.php";//файл с меню
+?>
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				<div class="card">
+                     
 <form name="form2"  method="post"  >
 
 								
@@ -130,7 +180,49 @@ $r=mysqli_query($dbcnx,$s);
 										
 									</div>
 
-      </form>
-</main>
+      </form>	    
+        
+           								</div>
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				<footer class="footer">
+					<div class="container-fluid"  >
+						<nav class="pull-left">
+							<ul class="nav">
+
+							</ul>
+						</nav>
+						<div class="copyright ml-auto">
+							<p><? echo Date("Y");?>, Все права защищены</p>
+						</div>				
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
