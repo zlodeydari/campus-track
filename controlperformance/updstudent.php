@@ -36,6 +36,32 @@ $idsquad =  $_POST["idsquad"];
 $student =  $_POST["student"];
 $ticket =  $_POST["ticket"];
 
+$error=0;
+
+//формируем сообщение об ошибке
+if ( (trim($student)=="")  )
+$error=1;
+
+if (trim($student)=="")
+$alert=$alert."Введите данные в поле 'Студент'! <br>";
+
+
+
+if ($error==1)
+{
+$alert="Ошибка ввода данных!<br>".$alert;
+
+?>
+<meta charset="utf-8">
+<script language="javascript">
+var text = "<? echo $alert;?>";
+text=text.replace(new RegExp("<br>",'g'),"\n");
+alert(text);
+history.back();
+</script>
+<?
+exit();
+}	
 
 
   {//формирование SQL-запроса на добавление данных

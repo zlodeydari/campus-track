@@ -55,6 +55,8 @@ $r=mysqli_query($dbcnx,$s);
 		<th scope="col">&nbsp;</th>                                   
 		<th scope="col">Студент</th>
 		<th scope="col">Группа</th>		 
+		<th scope="col">Дата рождения</th>
+		<th scope="col">Билет</th>        
 
                                        			        
                                                     </tr>
@@ -82,6 +84,8 @@ $r=mysqli_query($dbcnx,$s);
 				echo "
 				<td> ".$f['student']."</td>		
 				<td> ".$f['squad']."</td>
+				<td> ".$f['datebirth']."</td>																	
+				<td> ".$f['ticket']."</td>				
 				";		
 											
 				echo "</tr>";
