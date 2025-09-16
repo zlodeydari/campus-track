@@ -27,7 +27,32 @@ exit;
  
 
 
+$filter=$_GET["filter"];//считывание параметра фильтра
+$sort=$_GET["sort"];//считывание параметра фильтра		
+
+if ($filter==0)/*есть ли фильтрация данных*/
+{
+$value2 = "Все"; 
+}
+
+
 $s="SELECT student.*, squad FROM student INNER JOIN squad ON squad.idsquad=student.idsquad where idstudent=idstudent ";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+$fieldfind = $_POST['findname'];//первое поле
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$value2 = "Все";//значение первого поля
+
+if ($value1!="Все")
+$s=$s." and UPPER($fieldfind) LIKE UPPER('%$value1"."%')  ";
+else
+$s=$s." and $fieldfind=$fieldfind ";
+}
+
+
+
+
 $r=mysqli_query($dbcnx,$s);
 
 	 ?>
@@ -90,7 +115,29 @@ require "menu.php";//файл с меню
 								
 									<div class="card-header">
 										<div class="card-title">Перечень студентов</div>         
-     		   
+     		<div align="right">	
+
+				  
+                            
+    &nbsp;&nbsp;Группа: 
+			
+                                       
+
+    &nbsp;                        	
+по полю 
+ &nbsp;  
+				<select name="findname"  style="height:22; width:auto"  >
+	                    		<option value="student"  <? if ($fieldfind=="student") {?> selected="selected" <? }?>>ФИО </option>                    		                                 
+					<option value="ticket"  <? if ($fieldfind=="ticket") {?> selected="selected" <? }?>>Билет </option>	                             
+			  </select>  
+                
+				<input   name="FilterValue1"  onFocus="if (this.value=='Все') this.value=''"  value="<? if ($filter==1)/*есть ли фильтрация данных*/ echo "$value1"; else echo("Все"); ?>" onBlur="checkFilterValue1()"  type="text">
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='student.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='student.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+           <br>            
+        </div>   
 
 
  <div align="left">
