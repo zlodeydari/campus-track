@@ -1,6 +1,4 @@
 <?
-$upd=0;
-
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=4;
 
@@ -29,7 +27,7 @@ $date=date("Y")."-".date("m")."-".date("d");
 
 if ($step==2)
 {
-$upd=0;
+$upd=$_REQUEST["upd"];
 
 $datebirth =  $_POST["datebirth"];
 $idsquad =  $_POST["idsquad"];
@@ -64,6 +62,15 @@ exit();
 }	
 
 
+if ($upd==1)
+  {  
+     $id=$_REQUEST["id"];
+     	 $s="UPDATE student set datebirth='$datebirth', idsquad='$idsquad', ticket='$ticket', student='$student' WHERE idstudent=$id";
+	 mysqli_query($dbcnx,$s);
+	 
+
+
+  }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx, "INSERT INTO student ( ticket, idsquad, datebirth, student) VALUES ('$ticket', '$idsquad', '$datebirth', '$student')");
 
@@ -76,6 +83,15 @@ exit();
 	 <?
 }
 
+	 $upd=$_REQUEST["upd"];
+
+	 if ($upd==1)
+		{
+	 $Arr=$_REQUEST["arrstudent"];
+	 $idstudent=$Arr[0];
+	 $r=mysqli_query($dbcnx, "select * from student where idstudent=$idstudent");
+	 $f=mysqli_fetch_array($r);
+	 }
      ?>
 
 
@@ -173,12 +189,12 @@ require "menu.php";//файл с меню
 
                     <tr>
                       <td><font color="#000000" >  Дата рождения: </font> </td>
-                      <td><input  class="form-control input-full"   name="datebirth"  value="<? echo("$date"); ?>"   type="date" ></td>
+                      <td><input  class="form-control input-full"   name="datebirth"  value="<? if ($upd==1) echo $f['datebirth']; else echo("$date"); ?>"   type="date" ></td>
                     </tr>   
           
                         <tr>
                       <td><font color="#000000" >  Студент: </font> </td>
-                      <td><input  class="form-control input-full"   name="student"  value="<? echo(""); ?>"   type="text" ></td>
+                      <td><input  class="form-control input-full"   name="student"  value="<? if ($upd==1) echo $f['student']; else echo(""); ?>"   type="text" ></td>
                     </tr>    
              
  <tr> 
@@ -206,7 +222,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
  
                     <tr>
                       <td><font color="#000000" >  Билет: </font> </td>
-                      <td><input  class="form-control input-full"   name="ticket"  value="<? echo(""); ?>"   type="number" ></td>
+                      <td><input  class="form-control input-full"   name="ticket"  value="<? if ($upd==1) echo $f['ticket']; else echo(""); ?>"   type="number" ></td>
                     </tr>    
                       
                   </table>

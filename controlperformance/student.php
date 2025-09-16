@@ -95,6 +95,8 @@ require "menu.php";//файл с меню
 
  <div align="left">
  <input  type="button" class="btn btn-success"  name="button4"    onclick="this.form.action='updstudent.php?upd=0&step=1'; this.form.submit();" value="Добавить">
+ <input  type="button" class="btn btn-success"   name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='updstudent.php?upd=1&step=1'; this.form.submit();" value="Редактирование"> 
+ <input  class="btn btn-danger"  type="button"  name="button" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы действительно хотите удалить запись?');  if (qwest) {this.form.action='delstudent.php'; this.form.submit();}" value="Удалить">    
 
 
    </div>            
