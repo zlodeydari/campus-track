@@ -42,12 +42,15 @@ if ($filter==1)/*есть ли фильтрация данных*/
 {
 $fieldfind = $_POST['findname'];//первое поле
 $value1 = $_POST['FilterValue1'];//значение первого поля
-$value2 = "Все";//значение первого поля
+$value2 = $_POST['FilterValue2'];//значение первого поля
 
 if ($value1!="Все")
 $s=$s." and UPPER($fieldfind) LIKE UPPER('%$value1"."%')  ";
 else
 $s=$s." and $fieldfind=$fieldfind ";
+
+if ($value2!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and squad.idsquad= $value2 ";	
 }
 
 
@@ -121,7 +124,24 @@ require "menu.php";//файл с меню
                             
     &nbsp;&nbsp;Группа: 
 			
-                                       
+<select  name="FilterValue2"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from squad");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idsquad'];
+	if ($m ['idsquad']==$value2)
+	 echo " selected=selected";
+	echo ">".$m["squad"];
+	echo "</option>";	 		
+  }
+  
+?>	
+ </select>                                       
 
     &nbsp;                        	
 по полю 
@@ -146,6 +166,7 @@ require "menu.php";//файл с меню
  <input  class="btn btn-danger"  type="button"  name="button" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы действительно хотите удалить запись?');  if (qwest) {this.form.action='delstudent.php'; this.form.submit();}" value="Удалить">    
 
 
+    <input  type="button" class="btn btn-success"  name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='expstudent.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
