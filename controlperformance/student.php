@@ -54,7 +54,13 @@ if ($value2!="Все") /*есть ли фильтрация данных*/
 }
 
 
-
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by squad";
 
 $r=mysqli_query($dbcnx,$s);
 
@@ -119,8 +125,14 @@ require "menu.php";//файл с меню
 									<div class="card-header">
 										<div class="card-title">Перечень студентов</div>         
      		<div align="right">	
-
-				  
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='student.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >  
+	                    		<option value="student"  <? if ($fieldsort=="student") {?> selected="selected" <? }?>>ФИО </option>
+					<option value="squad"  <? if ($fieldsort=="squad") {?> selected="selected" <? }?>>Группа </option>		                    		                                 
+					<option value="ticket"  <? if ($fieldsort=="ticket") {?> selected="selected" <? }?>>Билет </option>							                
+					<option value="datebirth"  <? if ($fieldsort=="datebirth") {?> selected="selected" <? }?>>Дата рождения </option>	                                  
+                                       
+			  </select>  
                             
     &nbsp;&nbsp;Группа: 
 			
