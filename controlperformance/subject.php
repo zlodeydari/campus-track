@@ -27,7 +27,31 @@ exit;
 }
 
 
+$filter=$_GET["filter"];//считывание параметра фильтра
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$sort=$_GET["sort"];//считывание параметра фильтра		
+//выполнение запроса на выборку данных
 $s="SELECT subject.* FROM subject ";
+
+if (($value1!="") and ($filter==1))/*есть ли фильтрация данных*/
+{
+$s=$s." WHERE UPPER(subject)" ;
+if ($value1!="Все")
+$s=$s." LIKE UPPER('%$value1"."%')  ";
+else
+$s=$s."=UPPER(subject) ";
+
+}
+
+		 
+
+
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+
 $r=mysqli_query($dbcnx,$s);
 	
 
@@ -39,9 +63,29 @@ $r=mysqli_query($dbcnx,$s);
 								
 									<div>
 										<div>Перечень предметов</div>
-                                          
+                                        <div align="right">	
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='subject.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
+				  <option value="subject"  <? if ($fieldsort=="subject") {?> selected="selected" <? }?>>Предмет </option>
+
+
+
+                </select>            	
+&nbsp;&nbsp;Предмет: 
+                
+				<input   name="FilterValue1"  onFocus="if (this.value=='Все') this.value=''"  value="<? if ($filter==1)/*есть ли фильтрация данных*/ echo "$value1"; else echo(""); ?>" onBlur="checkFilterValue1()"  type="text">
+
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='subject.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='subject.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+                
+           <br>
+             </div>  
  <div align="left">
 <input   type="button"   name="button4"    onclick="this.form.action='updsubject.php?upd=0&step=1'; this.form.submit();" value="Добавить">
+<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updsubject.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   
+<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы дествительно хотите удалить запись?');  if (qwest) {this.form.action='delsubject.php'; this.form.submit();}" value="Удалить">      
    </div>            
            
 									</div>

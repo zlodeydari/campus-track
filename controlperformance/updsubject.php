@@ -1,6 +1,4 @@
 <?
-$upd=0;
-
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=5;
 ?>
@@ -34,7 +32,7 @@ $step=$_REQUEST["step"];
 if ($step==2)
 {
 //признак редактирования
-$upd=0;
+$upd=$_REQUEST["upd"];
 
 //считывание данных
 $subject =  $_POST["subject"];
@@ -45,8 +43,43 @@ $subject =  $_POST["subject"];
 if ($upd==1)
      $id=$_REQUEST["id"];
 
+$error=0;
+
+//формируем сообщение об ошибке
+if ( (trim($subject)=="")  )
+$error=1;
+
+if (trim($subject)=="")
+$alert=$alert."Введите данные в поле 'Предмет'! <br>";
+
+
+
+if ($error==1)
+{
+$alert="Ошибка ввода данных!<br>".$alert;
+
+?>
+		<script language="javascript">
+
+var text = "<? echo $alert;?>";
+text=text.replace(new RegExp("<br>",'g'),"\n");
+alert(text);
+history.back();
+		</script>
+<?
+exit();
+}	
 
 //выполнение запроса на редактирование или добавление данных	
+if ($upd==1)
+  {  
+	 mysqli_query($dbcnx,"UPDATE subject set subject='$subject' WHERE idsubject=$id");
+	 ?>
+	 <script language="javascript">
+	 location.href='subject.php?filter=0';
+	 </script>
+	 <?
+  }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx,"INSERT INTO subject (subject) VALUES ('$subject')");
 	?>
@@ -59,6 +92,15 @@ exit;
 }
 
 
+$upd=$_REQUEST["upd"];
+if ($upd==1)
+{
+$Arr=$_REQUEST["Arr"];
+
+$r=mysqli_query($dbcnx,"select * from subject where idsubject="."$Arr[0]");
+$f=mysqli_fetch_array($r);//считывание текующей записи
+
+}
  
 ?>
 	<? require "menu.php"; ?>
@@ -89,7 +131,7 @@ exit;
                                     <table  border="0">
                     <tr>
                       <td width="25%"><font   color="#000000" >   Предмет*: </font> </td>
-                      <td><input    name="subject" size="55"   type="text"  value="<? echo(""); ?>"  ></td>
+                      <td><input    name="subject" size="55"   type="text"  value="<? if ($upd==1) echo htmlentities($f['subject']); else echo(""); ?>"  ></td>
                     </tr>  	   
                                                                                
 
