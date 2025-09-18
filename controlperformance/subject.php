@@ -56,13 +56,35 @@ $r=mysqli_query($dbcnx,$s);
 	
 
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+<?
+require "menu.php";//файл с меню
+?>
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				<div class="card">
+                     
 <form name="form2"  method="post"  >
 
 								
-									<div>
-										<div>Перечень предметов</div>
+									<div class="card-header">
+										<div class="card-title">Перечень предметов</div>
                                         <div align="right">	
 Сортировка:
 				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='subject.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
@@ -83,15 +105,15 @@ $r=mysqli_query($dbcnx,$s);
            <br>
              </div>  
  <div align="left">
-<input   type="button"   name="button4"    onclick="this.form.action='updsubject.php?upd=0&step=1'; this.form.submit();" value="Добавить">
-<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updsubject.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   
-<input   type="button"   name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы дествительно хотите удалить запись?');  if (qwest) {this.form.action='delsubject.php'; this.form.submit();}" value="Удалить">      
+<input   type="button"  class="btn btn-success"  name="button4"    onclick="this.form.action='updsubject.php?upd=0&step=1'; this.form.submit();" value="Добавить">
+<input   type="button"  class="btn btn-success"  name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="this.form.action='updsubject.php?upd=1&step=1'; this.form.submit();" value="Редактировать">   
+<input   type="button"  class="btn btn-danger"  name="button"  <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы дествительно хотите удалить запись?');  if (qwest) {this.form.action='delsubject.php'; this.form.submit();}" value="Удалить">      
    </div>            
            
 									</div>
                                     
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
 													<th scope="col">#</th>
@@ -110,9 +132,9 @@ $r=mysqli_query($dbcnx,$s);
 				echo "<tr>";
 ?>
 				<td>
-                <label>
-				<input type="radio" name="Arr[]" value=<? echo $f["idsubject"];?>  <? if ($i==0) echo "checked=checked";?>>
-				<span></span>
+                <label class="form-radio-input">
+				<input class="form-radio-input" type="radio" name="Arr[]" value=<? echo $f["idsubject"];?>  <? if ($i==0) echo "checked=checked";?>>
+				<span class="form-radio-sign"></span>
                 </label>
                 </td>
                                                 <?
@@ -130,7 +152,35 @@ $r=mysqli_query($dbcnx,$s);
 										
 									</div>
 
-      </form>
-</main>
+      </form>	    
+        
+           								</div>
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
