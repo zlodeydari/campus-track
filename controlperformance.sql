@@ -51,6 +51,18 @@ INSERT INTO `student` (`ticket`, `student`, `idstudent`, `idsquad`, `datebirth`)
 ('445666', 'Мелихов ПР', 12, 5, '2009-03-05'),
 ('3453254', 'Петрук ВА', 13, 1, '1999-09-25');
 
+CREATE TABLE `subject` (
+  `idsubject` int(11) NOT NULL,
+  `subject` varchar(40) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO `subject` (`idsubject`, `subject`) VALUES
+(1, 'Физика'),
+(2, 'Математика'),
+(3, 'Программирование'),
+(4, 'История'),
+(5, 'ИС');
+
 CREATE TABLE `usersystem` (
   `idusersystem` int(11) NOT NULL,
   `usersystem` varchar(40) COLLATE utf8_bin DEFAULT NULL,
@@ -78,6 +90,9 @@ ALTER TABLE `student`
   ADD PRIMARY KEY (`idstudent`),
   ADD KEY `idsquad` (`idsquad`);
 
+ALTER TABLE `subject`
+  ADD PRIMARY KEY (`idsubject`);
+
 ALTER TABLE `spec`
   MODIFY `idspec` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
@@ -86,6 +101,9 @@ ALTER TABLE `squad`
 
 ALTER TABLE `student`
   MODIFY `idstudent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `subject`
+  MODIFY `idsubject` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `squad`
   ADD CONSTRAINT `squad_ibfk_1` FOREIGN KEY (`idspec`) REFERENCES `spec` (`idspec`) ON DELETE CASCADE ON UPDATE CASCADE;

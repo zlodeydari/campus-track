@@ -63,7 +63,15 @@ if ($permission=="Декан")
 							</a>
 						</li>	
 
-			
+			<li class="nav-item">
+							<a href="subject.php">
+								<i class="la la-star-o"></i>
+								
+								<p>Предметы</p>
+								        
+
+							</a>
+						</li>
 
 
 			
