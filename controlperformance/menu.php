@@ -91,7 +91,15 @@ if ($permission=="Преподаватель")
 ?>				 						     						
 			
 
-			
+			<li class="nav-item">
+							<a href="studyteacher.php">
+								<i class="la la-yelp"></i>
+								
+								<p>Занятия</p>
+								        
+
+							</a>
+						</li>
 
 
 <?
