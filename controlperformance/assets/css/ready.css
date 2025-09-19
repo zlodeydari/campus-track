@@ -2199,12 +2199,84 @@ body {
   padding-top: 55px;
   padding-bottom: 100px;
 }
-.sidebar .nav { display: block; margin-top: 20px; }
-.sidebar .nav .nav-item { display: block; }
-.sidebar .nav .nav-item a { display: block; padding: 12px 20px; color: #666; }
-.sidebar .nav .nav-item a i { display: inline-block; width: 25px; margin-right: 8px; }
-.sidebar .nav .nav-item a p { display: inline; font-size: 14px; }
-.sidebar .nav .nav-item a:hover { background: #f5f5f5; }
+.sidebar .nav {
+  display: block;
+  float: none;
+  margin-top: 20px;
+}
+.sidebar .nav .nav-item {
+  display: list-item;
+}
+.sidebar .nav .nav-item.active a {
+  color: #575962;
+  font-weight: 700;
+}
+.sidebar .nav .nav-item.active a:before {
+  background: #1d7af3;
+  opacity: 1 !important;
+  position: absolute;
+  z-index: 1;
+  width: 3px;
+  height: 100%;
+  content: '';
+  left: 0;
+  top: 0;
+}
+.sidebar .nav .nav-item.active:hover a:before {
+  background: #1d7af3;
+  opacity: 1 !important;
+  position: absolute;
+  z-index: 1;
+  width: 3px;
+  height: 100%;
+  content: '';
+  left: 0;
+  top: 0;
+}
+.sidebar .nav .nav-item.active a i {
+  color: #4d7cfe;
+}
+.sidebar .nav .nav-item a {
+  display: flex;
+  align-items: center;
+  color: #83848a;
+  padding: 13px 25px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  position: relative;
+  margin-bottom: 5px;
+}
+.sidebar .nav .nav-item a:hover, .sidebar .nav .nav-item a:focus {
+  text-decoration: none;
+  background: #fbfbfb;
+}
+.sidebar .nav .nav-item:hover a:before {
+  background: #1d7af3;
+  opacity: 0.7;
+  position: absolute;
+  z-index: 1;
+  width: 3px;
+  height: 100%;
+  content: '';
+  left: 0;
+  top: 0;
+}
+.sidebar .nav .nav-item a i {
+  font-size: 23px;
+  color: #C3C5CA;
+  margin-right: 15px;
+  width: 25px;
+  text-align: center;
+  vertical-align: middle;
+  float: left;
+}
+.sidebar .nav .nav-item a p {
+  font-size: 14px;
+  margin-bottom: 0px;
+  letter-spacing: .04em;
+  margin-right: 5px;
+}
 
 .main-panel { width: calc(100% - 210px); float: right; background: #f2f3f8; }
 .main-panel .content { padding: 20px; margin-top: 55px; }
