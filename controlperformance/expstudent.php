@@ -3,12 +3,25 @@ require "option.php";//файл с параметрами подключения
 date_default_timezone_set("Europe/Moscow");
 $date=date("Y")."-".date("m")."-".date("d");   
 
+	header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename=Перечень студентов от '.$date.'.xls');
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0'); 
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');   
 
 
  	?>				   
 		
 <html >
-<head><meta charset="utf-8"><title>Ведомость</title></head>
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title><? echo $permission;?></title>
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
 <body>
 
 
@@ -59,14 +72,52 @@ $r=mysqli_query($dbcnx,$s);
 <font  size="+1" >   Перечень студентов от <? echo $date;?>  </font> 
 
  
- <ol>
-<?
-for ($i=0; $i<mysqli_num_rows($r); $i++) {
-    $row=mysqli_fetch_array($r);
-    echo "<li>".implode(" — ", array($row['student'], $row['squad'], $row['datebirth'], $row['ticket']))."</li>";
-}
-?>
-</ol>
+ <table border=1>
+											<thead>
+												<tr>
+                                  
+
+		<th scope="col">Студент</th>
+		<th scope="col">Группа</th>		 
+		<th scope="col">Дата рождения</th>
+
+		<th scope="col">Билет</th>      
+          
+            
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+		
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+		
+				<?
+				echo "
+
+				<td> ".$f['student']."</td>		
+				<td> ".$f['squad']."</td>
+				<td> ".$f['datebirth']."</td>													
+					
+				<td> ".$f['ticket']."</td>				
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+										</table>
 
        
 
