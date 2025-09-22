@@ -1,6 +1,4 @@
 <?
-$upd=0;
-
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=7;
 
@@ -30,7 +28,7 @@ $date=date("Y")."-".date("m")."-".date("d");
 
 if ($step==2)
 {
-$upd=0;
+$upd=$_REQUEST["upd"];
 
 $datestudy =  $_POST["datestudy"];
 $idsquad =  $_POST["idsquad"];
@@ -41,6 +39,14 @@ $idteacher =  $_POST["idteacher"];
 
 
 
+if ($upd==1)
+  {  
+     $idstudy=$_REQUEST["id"];
+     	 $s="UPDATE study set datestudy='$datestudy', idsquad='$idsquad', idcategory='$idcategory', idsubject='$idsubject', idteacher='$idteacher' WHERE idstudy=$idstudy";
+	 mysqli_query($dbcnx,$s);
+
+
+  }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx, "INSERT INTO study ( idcategory, idsquad, datestudy, idsubject, idteacher) VALUES ('$idcategory', '$idsquad', '$datestudy', '$idsubject', '$idteacher')");
 	
@@ -53,6 +59,15 @@ $idteacher =  $_POST["idteacher"];
 	 <?
 }
 
+	 $upd=$_REQUEST["upd"];
+
+	 if ($upd==1)
+		{
+	 $Arr=$_REQUEST["arrstudy"];
+	 $idstudy=$Arr[0];
+	 $r=mysqli_query($dbcnx, "select * from study where idstudy=$idstudy");
+	 $f=mysqli_fetch_array($r);
+	 }
      ?>
 
 
@@ -97,7 +112,7 @@ $idteacher =  $_POST["idteacher"];
 
                     <tr>
                       <td><font color="#000000" >  Дата занятий: </font> </td>
-                      <td><input    name="datestudy"  value="<? echo("$date"); ?>"   type="date" ></td>
+                      <td><input    name="datestudy"  value="<? if ($upd==1) echo $f['datestudy']; else echo("$date"); ?>"   type="date" ></td>
                     </tr>   
           
             
