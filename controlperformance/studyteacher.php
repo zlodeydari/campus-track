@@ -30,7 +30,43 @@ exit;
  
 
 
+$filter=$_GET["filter"];//считывание параметра фильтра
+$sort=$_GET["sort"];//считывание параметра фильтра		
+
+if ($filter==0)/*есть ли фильтрация данных*/
+{
+$value1 = "Все"; 
+$value2 = "Все"; 
+$value3 = "Все"; 
+$value4 = "Все"; 
+$date1=(date("Y")-1)."-".date("m")."-".date("d");    
+$date2=(date("Y")+1)."-".date("m")."-".date("d");    
+}
+
+
 $s="SELECT study.*, squad, teacher, category, subject FROM study, squad, teacher, category, subject where squad.idsquad=study.idsquad and study.idcategory=category.idcategory and study.idsubject=subject .idsubject and study.idteacher=teacher.idteacher ";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+$date1=$_POST['date1'];    
+$date2=$_POST['date2'];    
+ 
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$value2 = $_POST['FilterValue2'];//значение первого поля
+$value3 = "Все";//значение первого поля
+$value4 = "Все";//значение первого поля
+
+if ($value1!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and study.idcategory= $value1 ";	
+
+if ($value2!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and study.idsquad= $value2 ";	
+
+}
+
+
+
+
 $r=mysqli_query($dbcnx,$s);
 
 	 ?>
@@ -93,7 +129,67 @@ require "menu.php";//файл с меню
 								
 									<div class="card-header">
 										<div class="card-title">Перечень занятий</div>         
-     		   
+     		<div align="right">	
+
+				  
+
+
+&nbsp;Тип занятия: 
+			
+<select  name="FilterValue1"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from category");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idcategory'];
+	if ($m ['idcategory']==$value1)
+	 echo " selected=selected";
+	echo ">".$m["category"];
+	echo "</option>";	 		
+  }
+  
+?>	
+ </select>   
+                            
+&nbsp;Группа: 
+			
+<select  name="FilterValue2"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from squad");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idsquad'];
+	if ($m ['idsquad']==$value2)
+	 echo " selected=selected";
+	echo ">".$m["squad"];
+	echo "</option>";	 		
+  }
+  
+?>	
+ </select>                                       
+
+&nbsp;Предмет: 
+			
+    
+
+&nbsp;Преподаватель: 
+			
+     
+
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='studyteacher.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='studyteacher.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+           <br>            
+        </div>   
 
 
  <div align="left">
@@ -101,6 +197,7 @@ require "menu.php";//файл с меню
  <input  type="button" class="btn btn-success"   name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='updstudyteacher.php?upd=1&step=1'; this.form.submit();" value="Редактирование"> 
  <input  class="btn btn-danger"  type="button"  name="button" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы действительно хотите удалить запись?');  if (qwest) {this.form.action='delstudyteacher.php'; this.form.submit();}" value="Удалить">    
 
+    <input  type="button" class="btn btn-success"  name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='expstudyteacher.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
