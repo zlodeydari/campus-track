@@ -53,8 +53,8 @@ $date2=$_POST['date2'];
  
 $value1 = $_POST['FilterValue1'];//значение первого поля
 $value2 = $_POST['FilterValue2'];//значение первого поля
-$value3 = "Все";//значение первого поля
-$value4 = "Все";//значение первого поля
+$value3 = $_POST['FilterValue3'];//значение первого поля
+$value4 = $_POST['FilterValue4'];//значение первого поля
 
 if ($value1!="Все") /*есть ли фильтрация данных*/
  $s=$s." and study.idcategory= $value1 ";	
@@ -62,6 +62,13 @@ if ($value1!="Все") /*есть ли фильтрация данных*/
 if ($value2!="Все") /*есть ли фильтрация данных*/
  $s=$s." and study.idsquad= $value2 ";	
 
+if ($value3!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and study.idsubject= $value3 ";	
+
+if ($value4!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and study.idteacher= $value4 ";	
+
+$s=$s." and datestudy>='$date1' and datestudy<='$date2' ";
 }
 
 
@@ -191,12 +198,48 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
 &nbsp;Предмет: 
 			
-    
+<select  name="FilterValue3"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from subject");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idsubject'];
+	if ($m ['idsubject']==$value3)
+	 echo " selected=selected";
+	echo ">".$m["subject"];
+	echo "</option>";	 		
+  }
+  
+?>	
+ </select>    
 
 &nbsp;Преподаватель: 
 			
-     
+<select  name="FilterValue4"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from teacher");
 
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idteacher'];
+	if ($m ['idteacher']==$value4)
+	 echo " selected=selected";
+	echo ">".$m["teacher"];
+	echo "</option>";	 		
+  }
+  
+?>	
+ </select>     
+
+с:<input   name="date1"  value="<? echo "$date1";?>"   type="date">
+по:<input   name="date2"   type="date"  value="<? echo "$date2";?>" >
 
 				<br>
 				<input  type="button"  name="button1"  onclick="this.form.action='studyteacher.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
@@ -223,6 +266,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 		<th scope="col">Тип занятия</th>
 		<th scope="col">Группа</th>		 
 		<th scope="col">Предмет</th>
+		<th scope="col">Преподаватель</th>	
    
 
                                        			        
@@ -253,6 +297,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 				<td> ".$f['category']."</td>		
 				<td> ".$f['squad']."</td>
 				<td> ".$f['subject']."</td>				
+				<td> ".$f['teacher']."</td>																
 				";		
 											
 				echo "</tr>";
