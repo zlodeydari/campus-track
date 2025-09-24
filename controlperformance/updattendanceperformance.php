@@ -65,27 +65,58 @@ $r=mysqli_query($dbcnx,"select * from attendance where idattendance=$idattendanc
 $f=mysqli_fetch_array($r);//считывание текующей записи
 }
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+                
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+<?
+require "menu.php";//файл с меню
+?>
+          <div class="main-panel">
+          
+				<div class="content">
+                
+					<div class="container-fluid">
+
+                    
+                   
+				
+                     <div class="card">
+                     
+
+
+
+
+
 <form name="form2"  method="post"  >
 
-									<div>		
+									<div class="card-header">		
 	 								<? 
 									if ($upd==0){ 
 									?>
-										<div>Добавление посещаемости занятия №<? echo $idstudy;?></div>      
+										<div class="card-title">Добавление посещаемости занятия №<? echo $idstudy;?></div>      
                                     <?
 									}
 									else
 									{
 									?>
-										<div>Редактирование посещаемости занятия №<? echo $idstudy;?></div>      
+										<div class="card-title">Редактирование посещаемости занятия №<? echo $idstudy;?></div>      
 									<?
                                     }
 									?>  
                                    
 									</div>
-									<div>
+									<div class="card-body">
 
 
 
@@ -95,7 +126,7 @@ $f=mysqli_fetch_array($r);//считывание текующей записи
  <tr>
                       <td><font color="#000000" >   Посещаемость: </font></td>
                       <td>
-                 <select  name="attendance"  style="height:22; width:auto"    >
+                 <select class="form-control"  name="attendance"  style="height:22; width:auto"    >
 					<option  value="Присутствовал" <?	if (($upd==1)&& ($f['attendance']=="Присутствовал")) echo "selected"; ?> >Присутствовал </option>
 					<option  value="Отсутствовал" <?	if (($upd==1)&& ($f['attendance']=="Отсутствовал")) echo "selected"; ?> >Отсутствовал </option>
 				</select>                    
@@ -109,14 +140,47 @@ $f=mysqli_fetch_array($r);//считывание текующей записи
                   
                   
 <br>
-				<input   type="button"   name="button"    onclick="this.form.action='updattendanceperformance.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>';  this.form.submit();"   value="Сохранить" width="500">
-				<input   type="button"  name="button"   onClick="this.form.action='attendanceperformance.php'; this.form.submit();"  value="Отмена">
+				<input class="btn btn-success"   type="button"   name="button"    onclick="this.form.action='updattendanceperformance.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>';  this.form.submit();"   value="Сохранить" width="500">
+				<input class="btn btn-danger"   type="button"  name="button"   onClick="this.form.action='attendanceperformance.php'; this.form.submit();"  value="Отмена">
                                     
                                     
                                     	
 			</div>
 
       </form>
-</main>
+
+
+
+	            
+           					</div>
+                            
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
