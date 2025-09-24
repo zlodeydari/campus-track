@@ -32,21 +32,47 @@ $r=mysqli_query($dbcnx,$s);
 
 
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+
+
+<?
+require "menu.php";//файл с меню
+?>
+
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				<div class="card">
+                     
 <form name="form2"  method="post"  >
 						
-									<div>
-										<div>Посещаемость занятия №<? echo $idstudy;?></div>
+									<div class="card-header">
+										<div class="card-title">Посещаемость занятия №<? echo $idstudy;?></div>
                                           
  <div align="left">
+<input   type="button"  class="btn btn-success"  name="button"  onclick="this.form.action='updattendanceperformance.php?upd=1&step=0'; this.form.submit();" value="Редактировать"> 
 
    </div>            
            
 									</div>
                                     
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
 													<th scope="col">#</th>
@@ -67,9 +93,9 @@ $r=mysqli_query($dbcnx,$s);
 				echo "<tr>";
 ?>
 				<td>
-                <label>
-				<input type="radio" name="arrattendance[]" value=<? echo $f["idattendance"];?>  <? if ($i==0)  echo "checked=checked";?>>
-				<span></span>
+                <label class="form-radio-input">
+				<input class="form-radio-input" type="radio" name="arrattendance[]" value=<? echo $f["idattendance"];?>  <? if ($i==0)  echo "checked=checked";?>>
+				<span class="form-radio-sign"></span>
                 </label>
                </td>
         <?
@@ -89,7 +115,34 @@ $r=mysqli_query($dbcnx,$s);
 										
 									</div>
 
-      </form>
-</main>
+      </form>	            
+           								</div>
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
