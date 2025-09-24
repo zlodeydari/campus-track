@@ -2,6 +2,12 @@
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=7;
 
+if (isset ($_POST['arrstudy']))
+{
+ $Arr=$_POST['arrstudy'];
+ $idstudy=$Arr[0];
+ setcookie ( 'idstudy', $idstudy); 
+}
 
 if ($permission!="Преподаватель")
 {
@@ -45,10 +51,31 @@ if ($upd==1)
      	 $s="UPDATE study set datestudy='$datestudy', idsquad='$idsquad', idcategory='$idcategory', idsubject='$idsubject', idteacher='$idteacher' WHERE idstudy=$idstudy";
 	 mysqli_query($dbcnx,$s);
 
+	mysqli_query($dbcnx, "delete from attendance where idstudy=$idstudy");
+	$r=mysqli_query($dbcnx, "select idstudent from student where idsquad=$idsquad");
+
+		for ($i=0;$i<mysqli_num_rows($r);$i++)
+		  {
+		  $f=mysqli_fetch_array($r);//считывание текующей записи
+		  $idstudent=$f["idstudent"];
+		  mysqli_query($dbcnx, "insert into attendance (idstudent, idstudy, attendance) values ('$idstudent', '$idstudy', 'Присутствовал')");
+
+		  }
 
   }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx, "INSERT INTO study ( idcategory, idsquad, datestudy, idsubject, idteacher) VALUES ('$idcategory', '$idsquad', '$datestudy', '$idsubject', '$idteacher')");
+	$idstudy=mysqli_insert_id($dbcnx);
+
+	$r=mysqli_query($dbcnx, "select idstudent from student where idsquad=$idsquad");
+
+		for ($i=0;$i<mysqli_num_rows($r);$i++)
+		  {
+		  $f=mysqli_fetch_array($r);//считывание текующей записи
+		  $idstudent=$f["idstudent"];
+		  mysqli_query($dbcnx, "insert into attendance (idstudent, idstudy, attendance) values ('$idstudent', '$idstudy', 'Присутствовал')");
+
+		  }
 	
   }	
   

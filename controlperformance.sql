@@ -2,6 +2,14 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET NAMES utf8mb4;
 
+CREATE TABLE `attendance` (
+  `idattendance` int(11) NOT NULL,
+  `attendance` varchar(40) COLLATE utf8_bin DEFAULT NULL,
+  `idstudent` int(11) NOT NULL,
+  `idstudy` int(11) NOT NULL,
+  `cause` varchar(40) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 CREATE TABLE `category` (
   `idcategory` int(11) NOT NULL,
   `category` varchar(40) COLLATE utf8_bin DEFAULT NULL
@@ -111,6 +119,11 @@ INSERT INTO `usersystem` (`idusersystem`, `usersystem`, `phone`, `mail`, `login`
 (7, 'Резниченко ДА', '884455', 'manager@ya.ru', 'manager', 'rtyu', 'Студент'),
 (9, 'Долгополов НВ', '235522', 'mikola@ya.ru', 'mikola', 'dfgh', 'Декан');
 
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`idattendance`),
+  ADD KEY `idstudent` (`idstudent`),
+  ADD KEY `idstudy` (`idstudy`);
+
 ALTER TABLE `category`
   ADD PRIMARY KEY (`idcategory`);
 
@@ -138,6 +151,9 @@ ALTER TABLE `subject`
 ALTER TABLE `teacher`
   ADD PRIMARY KEY (`idteacher`);
 
+ALTER TABLE `attendance`
+  MODIFY `idattendance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 ALTER TABLE `category`
   MODIFY `idcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
@@ -158,6 +174,10 @@ ALTER TABLE `subject`
 
 ALTER TABLE `teacher`
   MODIFY `idteacher` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `attendance`
+  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`idstudent`) REFERENCES `student` (`idstudent`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`idstudy`) REFERENCES `study` (`idstudy`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `squad`
   ADD CONSTRAINT `squad_ibfk_1` FOREIGN KEY (`idspec`) REFERENCES `spec` (`idspec`) ON DELETE CASCADE ON UPDATE CASCADE;
