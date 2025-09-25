@@ -27,7 +27,36 @@ if (isset ($_POST['arrstudy']))
 </head>
 <body>
 <?
+$filter=$_GET["filter"];//считывание показателя фильтра
+
+$value1 = $_POST['FilterValue1'];//значение первого поля
+
+
+$sort=$_GET["sort"];//считывание показателя фильтра		
+
+if ($filter==0)/*есть ли фильтрация данных*/
+{
+$value1 = "Все"; 
+}
+
+
+//выполнение запроса на выборку данных
 $s="SELECT *,  student from attendance, student where attendance.idstudent=student.idstudent and attendance.idstudy= $idstudy";
+
+
+ if (($value1!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and attendance.idstudent = $value1 ";	
+ 
+
+
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by student";
+
 $r=mysqli_query($dbcnx,$s);
 
 
@@ -63,7 +92,45 @@ require "menu.php";//файл с меню
 						
 									<div class="card-header">
 										<div class="card-title">Посещаемость занятия №<? echo $idstudy;?></div>
-                                          
+                                        <div align="right">	
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='attendanceperformance.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
+
+
+                  <option value="student"  <? if ($fieldsort=="student") {?> selected="selected" <? }?> >Студент </option>
+                  <option value="attendance"  <? if ($fieldsort=="attendance") {?> selected="selected" <? }?> >Посещаемость </option>
+
+                </select>   
+
+                               
+
+    &nbsp;&nbsp;Студент: 
+			
+<select  name="FilterValue1"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from student");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idstudent'];
+	if ($m ['idstudent']==$value1)
+	 echo " selected=selected";
+	echo ">".$m["student"];
+	echo "</option>";	 		
+  }
+  
+?>				
+</select>
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='attendanceperformance.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='attendanceperformance.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+                
+           <br>
+             </div>  
  <div align="left">
 <input   type="button"  class="btn btn-success"  name="button"  onclick="this.form.action='updattendanceperformance.php?upd=1&step=0'; this.form.submit();" value="Редактировать"> 
 
