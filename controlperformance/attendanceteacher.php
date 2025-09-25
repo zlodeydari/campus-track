@@ -22,7 +22,41 @@ $menugroup=5;
 </head>
 <body>
 <?
+$filter=$_GET["filter"];//считывание показателя фильтра
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$value2 = $_POST['FilterValue2'];//значение первого поля
+$value3 = "Все";//значение первого поля
+$value4 = "Все";//значение первого поля
+
+$sort=$_GET["sort"];//считывание показателя фильтра		
+
+if ($filter==0)/*есть ли фильтрация данных*/
+{
+$value1 = "Все"; 
+$value2 = "Все"; 
+$value3 = "Все"; 
+$value4 = "Все"; 
+$date1=(date("Y")-1)."-".date("m")."-".date("d");    
+$date2=(date("Y")+1)."-".date("m")."-".date("d");    
+}
+else
+{
+$date1=$_POST['date1'];    
+$date2=$_POST['date2'];   
+}
+
+//выполнение запроса на выборку данных
 $s="SELECT *  from study, attendance, student, teacher, subject where study.idstudy=attendance.idstudy and attendance.idstudent=student.idstudent  and study.idsubject=subject.idsubject and study.idteacher=teacher.idteacher";
+
+
+ if (($value1!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and attendance.idstudent = $value1 ";	
+  if (($value2!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and study.idteacher = $value2 ";	
+
+
+
+
 $r=mysqli_query($dbcnx,$s);
 
 
@@ -33,7 +67,72 @@ $r=mysqli_query($dbcnx,$s);
 						
 									<div>
 										<div>Посещаемость</div>
-                                          
+                                        <div align="right">	
+
+				   
+
+                               
+
+    &nbsp;&nbsp;Студент: 
+			
+<select  name="FilterValue1"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from student");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idstudent'];
+	if ($m ['idstudent']==$value1)
+	 echo " selected=selected";
+	echo ">".$m["student"];
+	echo "</option>";	 		
+  }
+  
+?>				
+</select>
+
+
+    &nbsp;&nbsp;Преподаватель: 
+			
+<select  name="FilterValue2"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from teacher");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idteacher'];
+	if ($m ['idteacher']==$value2)
+	 echo " selected=selected";
+	echo ">".$m["teacher"];
+	echo "</option>";	 		
+  }
+  
+?>				
+</select>
+
+
+
+    &nbsp;&nbsp;Предмет: 
+			
+
+
+    &nbsp;&nbsp;Присутствие: 
+			
+
+
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='attendanceteacher.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='attendanceteacher.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+                
+           <br>
+             </div>  
  <div align="left">
 
    </div>            
