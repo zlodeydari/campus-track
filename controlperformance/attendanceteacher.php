@@ -55,7 +55,13 @@ $s="SELECT *  from study, attendance, student, teacher, subject where study.idst
  $s=$s." and study.idteacher = $value2 ";	
 
 
-
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by student";
 
 $r=mysqli_query($dbcnx,$s);
 
@@ -121,8 +127,14 @@ require "menu.php";//файл с меню
 									<div class="card-header">
 										<div class="card-title">Посещаемость</div>
                                         <div align="right">	
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='attendanceteacher.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
 
-				   
+
+                  <option value="student"  <? if ($fieldsort=="student") {?> selected="selected" <? }?> >Студент </option>
+                  <option value="attendance"  <? if ($fieldsort=="attendance") {?> selected="selected" <? }?> >Посещаемость </option>
+
+                </select>   
 
                                
 
@@ -187,6 +199,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
            <br>
              </div>  
  <div align="left">
+<input   type="button"  class="btn btn-success"  name="button"  onclick="this.form.action='expattendanceteacher.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
 
    </div>            
            
