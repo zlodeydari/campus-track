@@ -25,8 +25,8 @@ $menugroup=5;
 $filter=$_GET["filter"];//считывание показателя фильтра
 $value1 = $_POST['FilterValue1'];//значение первого поля
 $value2 = $_POST['FilterValue2'];//значение первого поля
-$value3 = "Все";//значение первого поля
-$value4 = "Все";//значение первого поля
+$value3 = $_POST['FilterValue3'];//значение первого поля
+$value4 = $_POST['FilterValue4'];//значение первого поля
 
 $sort=$_GET["sort"];//считывание показателя фильтра		
 
@@ -53,7 +53,12 @@ $s="SELECT *  from study, attendance, student, teacher, subject where study.idst
  $s=$s." and attendance.idstudent = $value1 ";	
   if (($value2!="Все") and ($filter==1))/*есть ли фильтрация данных*/
  $s=$s." and study.idteacher = $value2 ";	
+ if (($value3!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and study.idsubject = $value3 ";	
+ if (($value4!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and attendance like '$value4' ";	
 
+$s=$s." and datestudy>='$date1' and datestudy<='$date2' ";
 
 if ($sort==1)/*есть ли сортировка данных*/
 {
@@ -185,12 +190,35 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
     &nbsp;&nbsp;Предмет: 
 			
+<select  name="FilterValue3"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from subject");
 
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idsubject'];
+	if ($m ['idsubject']==$value3)
+	 echo " selected=selected";
+	echo ">".$m["subject"];
+	echo "</option>";	 		
+  }
+  
+?>				
+</select>
 
     &nbsp;&nbsp;Присутствие: 
 			
+<select  name="FilterValue4"   >	
+<option value="Все" selected=selected> Все</option>			
+<option value="Присутствовал" <? 	if ($value4=='Присутствовал') {echo "selected=selected";}?>> Присутствовал</option>	
+<option value="Отсутствовал" <? 	if ($value4=='Отсутствовал') {echo "selected=selected";}?>> Отсутствовал</option>					
+</select>
 
-
+с:<input   name="date1"  value="<? echo "$date1";?>"   type="date">
+по:<input   name="date2"   type="date"  value="<? echo "$date2";?>" >
 
 				<br>
 				<input  type="button"  name="button1"  onclick="this.form.action='attendanceteacher.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
