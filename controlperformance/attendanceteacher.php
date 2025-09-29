@@ -240,6 +240,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 													<th scope="col">#</th>
                                                     <th scope="col">Дата занятия</th> 
                                                     <th scope="col">Студент</th> 
+                                                    <th scope="col">Преподаватель</th> 
                                                     <th scope="col">Предмет</th> 
                                                     <th scope="col">Посещаемость</th>
                                                     <th scope="col">Причина</th>       
@@ -266,6 +267,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 				echo "
 				<td> $f[datestudy]</td>				
 				<td> $f[student]</td>		
+				<td> $f[teacher]</td>
 				<td> $f[subject]</td>	
 				<td> $f[attendance]</td>
 				<td> $f[cause]</td>	

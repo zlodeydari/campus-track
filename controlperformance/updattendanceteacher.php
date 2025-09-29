@@ -14,7 +14,7 @@ if ($upd==1)
      $idattendance=$_REQUEST["id"];
 
 //считывание данных
-$cause = "";
+$cause =  $_POST["cause"];
 $attendance =  $_POST["attendance"];
 
 
@@ -161,7 +161,10 @@ require "menu.php";//файл с меню
 				      </td> 
                       </tr>               
                
-		  	                                                                                     
+		<tr>
+                      <td><font color="#000000" >   Причина: </font> </td>
+                      <td><input class="form-control input-full"    name="cause" size="20"  type="text"  value="<? if ($upd==1) echo $f['cause']; ?>"  ></td>
+                    </tr>  	                                                                                     
 
 
                                       </table>
