@@ -6532,4 +6532,17 @@ body {
   .table-responsive { overflow-x: auto; }
 }
 
+@media screen and (min-width: 992px) {
+  .main-header .logo-header {
+    line-height: 52px;
+  }
+
+  .sidebar .scroll-element {
+    opacity: 0;
+    transition: all .2s;
+  }
+  .sidebar:hover .scroll-element {
+    opacity: 1;
+  }
+}
 /*# sourceMappingURL=ready.css.map */
