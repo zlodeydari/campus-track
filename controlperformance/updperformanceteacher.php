@@ -1,6 +1,4 @@
 <?
-$upd=0;
-
 require "option.php";//файл с параметрами подключения к БД
 $menugroup=8;
 
@@ -29,7 +27,7 @@ $date=date("Y")."-".date("m")."-".date("d");
 
 if ($step==2)
 {
-$upd=0;
+$upd=$_REQUEST["upd"];
 
 $dateperformance =  $_POST["dateperformance"];
 $idcontrol =  $_POST["idcontrol"];
@@ -40,6 +38,12 @@ $performance =  $_POST["performance"];
 
 
 
+if ($upd==1)
+  {  
+     $id=$_REQUEST["id"];
+     	 $s="UPDATE performance set dateperformance='$dateperformance', idcontrol='$idcontrol', idstudent='$idstudent', idsubject='$idsubject', idteacher='$idteacher' , performance='$performance' WHERE idperformance=$id";
+	 mysqli_query($dbcnx,$s);
+  }  else
   {//формирование SQL-запроса на добавление данных
 	 mysqli_query($dbcnx, "INSERT INTO performance ( idstudent, idcontrol, dateperformance, idsubject, idteacher, performance) VALUES ('$idstudent', '$idcontrol', '$dateperformance', '$idsubject', '$idteacher', '$performance')");
   }	
@@ -51,6 +55,15 @@ $performance =  $_POST["performance"];
 	 <?
 }
 
+	 $upd=$_REQUEST["upd"];
+
+	 if ($upd==1)
+		{
+	 $Arr=$_REQUEST["arrperformance"];
+	 $idperformance=$Arr[0];
+	 $r=mysqli_query($dbcnx, "select * from performance where idperformance=$idperformance");
+	 $f=mysqli_fetch_array($r);
+	 }
      ?>
 
 
@@ -95,7 +108,7 @@ $performance =  $_POST["performance"];
 
                     <tr>
                       <td><font color="#000000" >  Дата оценки: </font> </td>
-                      <td><input    name="dateperformance"  value="<? echo("$date"); ?>"   type="date" ></td>
+                      <td><input    name="dateperformance"  value="<? if ($upd==1) echo $f['dateperformance']; else echo("$date"); ?>"   type="date" ></td>
                     </tr>   
           
             
@@ -188,7 +201,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
                     <tr>
                       <td><font color="#000000" >  Оценка: </font> </td>
-                      <td><input    name="performance" max="5" min="2"  value="<? echo(""); ?>"   type="number" ></td>
+                      <td><input    name="performance" max="5" min="2"  value="<? if ($upd==1) echo $f['performance']; else echo(""); ?>"   type="number" ></td>
                     </tr>  
 
 
