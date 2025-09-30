@@ -85,30 +85,30 @@ if ($upd==1)
 <form name="form2"  method="post"  enctype="multipart/form-data" >
 
 								
-									<div>
+									<div class="card-header">
 	 								<? 
 									if ($upd==0){ 
 									?>
-										<div>Добавление занятия</div>
+										<div class="card-title">Добавление занятия</div>
                                     <?
 									}
 									else
 									{
 									?>
-										<div>Редактирование занятия (<? echo $f["idperformance"];?>)</div>
+										<div class="card-title">Редактирование занятия (<? echo $f["idperformance"];?>)</div>
 									<?
                                     					}
 									?>  
                                          
 									</div>
                                     
-									<div>
+									<div class="card-body">
 				  <table border="0">
 
 
                     <tr>
                       <td><font color="#000000" >  Дата оценки: </font> </td>
-                      <td><input    name="dateperformance"  value="<? if ($upd==1) echo $f['dateperformance']; else echo("$date"); ?>"   type="date" ></td>
+                      <td><input  class="form-control input-full"   name="dateperformance"  value="<? if ($upd==1) echo $f['dateperformance']; else echo("$date"); ?>"   type="date" ></td>
                     </tr>   
           
             
@@ -116,7 +116,7 @@ if ($upd==1)
                  
   <tr> 
  <td><font color="#000000" >   Тип успеваемости: </font></td>
-        <td ><select name="idcontrol"  style="height:22; width:auto" >
+        <td ><select class="form-control" name="idcontrol"  style="height:22; width:auto" >
   <?
 
 $d=mysqli_query($dbcnx, "select * from control");
@@ -137,7 +137,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
  <tr> 
  <td><font color="#000000" >   Студент: </font></td>
-        <td ><select name="idstudent"  style="height:22; width:auto" >
+        <td ><select class="form-control" name="idstudent"  style="height:22; width:auto" >
   <?
 
 $d=mysqli_query($dbcnx, "select * from student");
@@ -158,7 +158,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
   <tr> 
  <td><font color="#000000" >   Предмет: </font></td>
-        <td ><select name="idsubject"  style="height:22; width:auto" >
+        <td ><select class="form-control" name="idsubject"  style="height:22; width:auto" >
   <?
 
 $d=mysqli_query($dbcnx, "select * from subject");
@@ -179,7 +179,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
   <tr> 
  <td><font color="#000000" >   Преподаватель: </font></td>
-        <td ><select name="idteacher"  style="height:22; width:auto" >
+        <td ><select class="form-control" name="idteacher"  style="height:22; width:auto" >
   <?
 
 $d=mysqli_query($dbcnx, "select * from teacher");
@@ -201,14 +201,14 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
                     <tr>
                       <td><font color="#000000" >  Оценка: </font> </td>
-                      <td><input    name="performance" max="5" min="2"  value="<? if ($upd==1) echo $f['performance']; else echo(""); ?>"   type="number" ></td>
+                      <td><input  class="form-control input-full"   name="performance" max="5" min="2"  value="<? if ($upd==1) echo $f['performance']; else echo(""); ?>"   type="number" ></td>
                     </tr>  
 
 
                   </table>
 <br>
-				<input  type="button"  name="button"   onclick="this.form.action='updperformanceteacher.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>'; this.form.submit();"   value="Сохранить" width="500">
-				<input   type="button"  name="button"  onClick="javascript:history.back();"  value="Отмена">
+				<input  class="btn btn-success" type="button"  name="button"   onclick="this.form.action='updperformanceteacher.php?step=2&upd=<? echo"$upd";?>&id=<? echo"$Arr[0]";?>'; this.form.submit();"   value="Сохранить" width="500">
+				<input   class="btn btn-danger" type="button"  name="button"  onClick="javascript:history.back();"  value="Отмена">
                                     
                                     
                                     	
