@@ -38,6 +38,14 @@ location.href='usersystem.php?step=0';
 <?	 
  }
 
+if ($permission=="Преподаватель")
+ {
+?>
+<script language="javascript">
+location.href='performanceteacher.php?step=0';
+</script>
+<?	 
+ } 
 
 
 

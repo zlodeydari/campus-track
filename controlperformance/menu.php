@@ -89,7 +89,15 @@ if ($permission=="Декан")
 if ($permission=="Преподаватель")
 {
 ?>				 						     						
-			
+			<li class="nav-item">
+							<a href="performanceteacher.php">
+								<i class="la la-history"></i>
+								
+								<p>Успеваемость</p>
+								        
+
+							</a>
+						</li>
 
 			<li class="nav-item">
 							<a href="studyteacher.php">

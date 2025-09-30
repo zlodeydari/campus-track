@@ -20,6 +20,26 @@ INSERT INTO `category` (`idcategory`, `category`) VALUES
 (2, 'Практика'),
 (3, 'Аттестация');
 
+CREATE TABLE `control` (
+  `idcontrol` int(11) NOT NULL,
+  `control` varchar(40) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO `control` (`idcontrol`, `control`) VALUES
+(1, 'Экзамен'),
+(2, 'Практика'),
+(3, 'Занятие');
+
+CREATE TABLE `performance` (
+  `idperformance` int(11) NOT NULL,
+  `dateperformance` date DEFAULT NULL,
+  `performance` int(11) DEFAULT NULL,
+  `idstudent` int(11) NOT NULL,
+  `idsubject` int(11) NOT NULL,
+  `idteacher` int(11) NOT NULL,
+  `idcontrol` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 CREATE TABLE `spec` (
   `idspec` int(11) NOT NULL,
   `spec` varchar(40) COLLATE utf8_bin DEFAULT NULL
@@ -127,6 +147,16 @@ ALTER TABLE `attendance`
 ALTER TABLE `category`
   ADD PRIMARY KEY (`idcategory`);
 
+ALTER TABLE `control`
+  ADD PRIMARY KEY (`idcontrol`);
+
+ALTER TABLE `performance`
+  ADD PRIMARY KEY (`idperformance`),
+  ADD KEY `idstudent` (`idstudent`),
+  ADD KEY `idsubject` (`idsubject`),
+  ADD KEY `idteacher` (`idteacher`),
+  ADD KEY `idcontrol` (`idcontrol`);
+
 ALTER TABLE `spec`
   ADD PRIMARY KEY (`idspec`);
 
@@ -157,6 +187,12 @@ ALTER TABLE `attendance`
 ALTER TABLE `category`
   MODIFY `idcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
+ALTER TABLE `control`
+  MODIFY `idcontrol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `performance`
+  MODIFY `idperformance` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 ALTER TABLE `spec`
   MODIFY `idspec` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
@@ -178,6 +214,12 @@ ALTER TABLE `teacher`
 ALTER TABLE `attendance`
   ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`idstudent`) REFERENCES `student` (`idstudent`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`idstudy`) REFERENCES `study` (`idstudy`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `performance`
+  ADD CONSTRAINT `performance_ibfk_1` FOREIGN KEY (`idstudent`) REFERENCES `student` (`idstudent`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `performance_ibfk_2` FOREIGN KEY (`idsubject`) REFERENCES `subject` (`idsubject`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `performance_ibfk_3` FOREIGN KEY (`idteacher`) REFERENCES `teacher` (`idteacher`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `performance_ibfk_4` FOREIGN KEY (`idcontrol`) REFERENCES `control` (`idcontrol`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `squad`
   ADD CONSTRAINT `squad_ibfk_1` FOREIGN KEY (`idspec`) REFERENCES `spec` (`idspec`) ON DELETE CASCADE ON UPDATE CASCADE;
