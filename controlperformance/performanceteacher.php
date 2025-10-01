@@ -49,12 +49,15 @@ $date1=$_POST['date1'];
 $date2=$_POST['date2'];    
  
 $value1 = $_POST['FilterValue1'];//значение первого поля
-$value2 = "Все";//значение первого поля
+$value2 = $_POST['FilterValue2'];//значение первого поля
 $value3 = "Все";//значение первого поля
 $value4 = "Все";//значение первого поля
 
 if ($value1!="Все") /*есть ли фильтрация данных*/
  $s=$s." and performance.idstudent= $value1 ";	
+
+if ($value2!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and performance.idcontrol= $value2 ";	
 
 }
 
@@ -123,7 +126,25 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
                             
 &nbsp;Студент: 
 			
-                                       
+<select  name="FilterValue2"   >	
+<option value="Все" selected=selected> Все</option>		
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from student");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idstudent'];
+	if ($m ['idstudent']==$value1)
+	 echo " selected=selected";
+	echo ">".$m["student"];
+	echo "</option>";	 		
+  }
+  
+?>		
+ 
+ </select>                                       
 
 &nbsp;Предмет: 
 			
