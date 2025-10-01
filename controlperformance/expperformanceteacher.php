@@ -39,7 +39,7 @@ $date2=$_POST['date2'];
  
 $value1 = $_POST['FilterValue1'];//значение первого поля
 $value2 = $_POST['FilterValue2'];//значение первого поля
-$value3 = "Все";//значение первого поля
+$value3 = $_POST['FilterValue3'];//значение первого поля
 $value4 = "Все";//значение первого поля
 
 if ($value1!="Все") /*есть ли фильтрация данных*/
@@ -47,6 +47,9 @@ if ($value1!="Все") /*есть ли фильтрация данных*/
 
 if ($value2!="Все") /*есть ли фильтрация данных*/
  $s=$s." and performance.idcontrol= $value2 ";	
+
+if ($value3!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and performance.idsubject= $value3 ";	
 
 }
 
