@@ -69,7 +69,13 @@ $s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
 }
 
 
-
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by dateperformance DESC";
 
 $r=mysqli_query($dbcnx,$s);
 
@@ -106,8 +112,15 @@ require "menu.php";//файл с меню
 									<div class="card-header">
 										<div class="card-title">Перечень успеваемости</div>         
      		<div align="right">	
-
-				  
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='performanceteacher.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >  
+					<option value="dateperformance DESC"  <? if ($fieldsort=="dateperformance DESC") {?> selected="selected" <? }?>>Дата оценки </option>	        
+					<option value="student"  <? if ($fieldsort=="student") {?> selected="selected" <? }?>>Тип контроля </option>	
+					<option value="control"  <? if ($fieldsort=="control") {?> selected="selected" <? }?>>Студент </option>		                    		                                 
+					<option value="subject"  <? if ($fieldsort=="subject") {?> selected="selected" <? }?>>Предмет </option>							                
+					<option value="teacher"  <? if ($fieldsort=="teacher") {?> selected="selected" <? }?>>Преподаватель </option>                          
+                                       
+			  </select>  
 
 
 &nbsp;Тип контроля: 

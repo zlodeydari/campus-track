@@ -71,7 +71,13 @@ $s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
 }
 
 
-
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by dateperformance";
 
 $r=mysqli_query($dbcnx,$s);
 

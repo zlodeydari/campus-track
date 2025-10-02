@@ -80,8 +80,33 @@ if ($upd==1)
 </head>
 <body>     
      
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+<?
+require "menu.php";//файл с меню
+?>
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				<div class="card">
+				
+				
+				
+				
 <form name="form2"  method="post"  enctype="multipart/form-data" >
 
 								
@@ -214,7 +239,35 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
                                     	
 									</div>
 
-      </form>
-</main>
+      </form>	            
+           					</div>
+                            
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
