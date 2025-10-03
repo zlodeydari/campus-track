@@ -116,7 +116,15 @@ if ($permission=="Преподаватель")
 if ($permission=="Студент")
 {
 ?>				 						     						
-			
+			<li class="nav-item">
+							<a href="performancestudent.php">
+								<i class="la la-history"></i>
+								
+								<p>Успеваемость</p>
+								        
+
+							</a>
+						</li>
 
 			
 

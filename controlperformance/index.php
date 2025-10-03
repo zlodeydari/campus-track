@@ -48,6 +48,14 @@ location.href='performanceteacher.php?step=0';
  } 
 
 
+if ($permission=="Студент")
+ {
+?>
+<script language="javascript">
+location.href='performancestudent.php?step=0';
+</script>
+<?	 
+ } 
 
 
 if ($permission=="Декан")
