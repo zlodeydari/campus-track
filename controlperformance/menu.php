@@ -126,7 +126,15 @@ if ($permission=="Студент")
 							</a>
 						</li>
 
-			
+			<li class="nav-item">
+							<a href="attendancestudent.php">
+								<i class="la la-yelp"></i>
+								
+								<p>Посещаемость</p>
+								        
+
+							</a>
+						</li>
 
 
 <?
