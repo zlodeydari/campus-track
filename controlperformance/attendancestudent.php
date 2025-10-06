@@ -22,18 +22,210 @@ $menugroup=7;
 </head>
 <body>
 <?
+$filter=$_GET["filter"];//считывание показателя фильтра
+$value1 = $_POST['FilterValue1'];//значение первого поля
+$value2 = $_POST['FilterValue2'];//значение первого поля
+$value3 = $_POST['FilterValue3'];//значение первого поля
+$value4 = $_POST['FilterValue4'];//значение первого поля
+
+$sort=$_GET["sort"];//считывание показателя фильтра		
+
+if ($filter==0)/*есть ли фильтрация данных*/
+{
+$value1 = "Все"; 
+$value2 = "Все"; 
+$value3 = "Все"; 
+$value4 = "Все"; 
+$date1=(date("Y")-1)."-".date("m")."-".date("d");    
+$date2=(date("Y")+1)."-".date("m")."-".date("d");    
+}
+else
+{
+$date1=$_POST['date1'];    
+$date2=$_POST['date2'];   
+}
+
+//выполнение запроса на выборку данных
 $s="SELECT *  from study, attendance, student, teacher, subject where study.idstudy=attendance.idstudy and attendance.idstudent=student.idstudent  and study.idsubject=subject.idsubject and study.idteacher=teacher.idteacher";
+
+
+ if (($value1!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and attendance.idstudent = $value1 ";	
+  if (($value2!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and study.idteacher = $value2 ";	
+ if (($value3!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and study.idsubject = $value3 ";	
+ if (($value4!="Все") and ($filter==1))/*есть ли фильтрация данных*/
+ $s=$s." and attendance like '$value4' ";	
+
+$s=$s." and datestudy>='$date1' and datestudy<='$date2' ";
+
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by student";
+
 $r=mysqli_query($dbcnx,$s);
 
 
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div>
+		<div>
+			<div>
+				<a href="#">
+					<? echo $permission;?>
+				</a>
+				<button type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span></span>
+				</button>
+				<button><i></i></button>
+			</div>
+			<nav>
+				<div>
+					
+
+					<ul>
+
+						
+						<li>
+							<a data-toggle="dropdown" href="#" aria-expanded="false"> <span ><? echo $usersystem;?></span></span> </a>
+							<ul>
+								<li>
+									<div>
+										
+										<div>
+											<h4><? echo $usersystem;?></h4>
+											<p><? echo $permission;?></p>
+											<p><? echo $mail;?></p>
+                                        </div>
+									</div>
+								</li>
+									<div></div>
+									
+									<a href="index.php?step=2"><i></i> Выход</a>
+								</ul>
+								<!-- /.dropdown-user-->
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+
+
+<?
+require "menu.php";//файл с меню
+?>
+
+			<div>
+				<div>
+					<div>
+
+                    
+                   
+				<div>
+                     
 <form name="form2"  method="post"  >
 						
 									<div>
 										<div>Посещаемость</div>
-                                          
+                                        <div align="right">	
+Сортировка:
+				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='attendancestudent.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
+
+
+                  <option value="student"  <? if ($fieldsort=="student") {?> selected="selected" <? }?> >Студент </option>
+                  <option value="attendance"  <? if ($fieldsort=="attendance") {?> selected="selected" <? }?> >Посещаемость </option>
+
+                </select>   
+
+                               
+
+    &nbsp;&nbsp;Студент: 
+			
+<select  name="FilterValue1"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from student");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idstudent'];
+	if ($m ['idstudent']==$value1)
+	 echo " selected=selected";
+	echo ">".$m["student"];
+	echo "</option>";	 		
+  }
+  
+?>				
+</select>
+
+
+    &nbsp;&nbsp;Преподаватель: 
+			
+<select  name="FilterValue2"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from teacher");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idteacher'];
+	if ($m ['idteacher']==$value2)
+	 echo " selected=selected";
+	echo ">".$m["teacher"];
+	echo "</option>";	 		
+  }
+  
+?>				
+</select>
+
+
+
+    &nbsp;&nbsp;Предмет: 
+			
+<select  name="FilterValue3"   >	
+<option value="Все" selected=selected> Все</option>			
+  <?
+  
+$d=mysqli_query($dbcnx,"select * from subject");
+
+for ($i=0;$i<mysqli_num_rows($d);$i++)
+  {
+ 	$m=mysqli_fetch_array($d);
+	echo "<option value=".$m['idsubject'];
+	if ($m ['idsubject']==$value3)
+	 echo " selected=selected";
+	echo ">".$m["subject"];
+	echo "</option>";	 		
+  }
+  
+?>				
+</select>
+
+    &nbsp;&nbsp;Присутствие: 
+			
+<select  name="FilterValue4"   >	
+<option value="Все" selected=selected> Все</option>			
+<option value="Присутствовал" <? 	if ($value4=='Присутствовал') {echo "selected=selected";}?>> Присутствовал</option>	
+<option value="Отсутствовал" <? 	if ($value4=='Отсутствовал') {echo "selected=selected";}?>> Отсутствовал</option>					
+</select>
+
+с:<input   name="date1"  value="<? echo "$date1";?>"   type="date">
+по:<input   name="date2"   type="date"  value="<? echo "$date2";?>" >
+
+				<br>
+				<input  type="button"  name="button1"  onclick="this.form.action='attendancestudent.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
+				<input  type="button"  name="button2"  onclick="this.form.action='attendancestudent.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
+                
+           <br>
+             </div>  
  <div align="left">
 <input   type="button"   name="button"  onclick="this.form.action='expattendancestudent.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
 
@@ -88,7 +280,72 @@ $r=mysqli_query($dbcnx,$s);
 										
 									</div>
 
-      </form>
-</main>
+      </form>	            
+           								</div>
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				<footer>
+					<div  >
+						<nav>
+							<ul>
+
+							</ul>
+						</nav>
+						<div>
+							 &copy; <? echo Date("Y");?>,  Все права защищены
+						</div>				
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugin/chartist/chartist.min.js"></script>
+<script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+<script>
+	$('#displayNotif').on('click', function(){
+		var placementFrom = $('#notify_placement_from option:selected').val();
+		var placementAlign = $('#notify_placement_align option:selected').val();
+		var store = $('#notify_store option:selected').val();
+		var style = $('#notify_style option:selected').val();
+		var content = {};
+
+		content.message = 'Turning standard Bootstrap alerts into "notify" like notifications';
+		content.title = 'Bootstrap notify';
+		if (style == "withicon") {
+			content.icon = 'la la-bell';
+		} else {
+			content.icon = 'none';
+		}
+		content.url = 'index.html';
+		content.target = '_blank';
+
+		$.notify(content,{
+			type: store,
+			placement: {
+				from: placementFrom,
+				align: placementAlign
+			},
+			time: 1000,
+		});
+	});
+</script>
 </html>
