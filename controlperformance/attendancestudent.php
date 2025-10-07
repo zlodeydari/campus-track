@@ -72,40 +72,40 @@ $r=mysqli_query($dbcnx,$s);
 
 
 ?>
-	<div>
-		<div>
-			<div>
-				<a href="#">
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
 					<? echo $permission;?>
 				</a>
-				<button type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-					<span></span>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
 				</button>
-				<button><i></i></button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
 			</div>
-			<nav>
-				<div>
+			<nav class="navbar navbar-header navbar-expand-lg">
+				<div class="container-fluid">
 					
 
-					<ul>
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 
 						
-						<li>
-							<a data-toggle="dropdown" href="#" aria-expanded="false"> <span ><? echo $usersystem;?></span></span> </a>
-							<ul>
+						<li class="nav-item dropdown">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <span ><? echo $usersystem;?></span></span> </a>
+							<ul class="dropdown-menu dropdown-user">
 								<li>
-									<div>
+									<div class="user-box">
 										
-										<div>
+										<div class="u-text">
 											<h4><? echo $usersystem;?></h4>
-											<p><? echo $permission;?></p>
-											<p><? echo $mail;?></p>
+											<p class="text-muted"><? echo $permission;?></p>
+											<p class="text-muted"><? echo $mail;?></p>
                                         </div>
 									</div>
 								</li>
-									<div></div>
+									<div class="dropdown-divider"></div>
 									
-									<a href="index.php?step=2"><i></i> Выход</a>
+									<a class="dropdown-item" href="index.php?step=2"><i class="fa fa-power-off"></i> Выход</a>
 								</ul>
 								<!-- /.dropdown-user-->
 							</li>
@@ -119,18 +119,18 @@ $r=mysqli_query($dbcnx,$s);
 require "menu.php";//файл с меню
 ?>
 
-			<div>
-				<div>
-					<div>
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
 
                     
                    
-				<div>
+				<div class="card">
                      
 <form name="form2"  method="post"  >
 						
-									<div>
-										<div>Посещаемость</div>
+									<div class="card-header">
+										<div class="card-title">Посещаемость</div>
                                         <div align="right">	
 Сортировка:
 				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='attendancestudent.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >
@@ -227,19 +227,20 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
            <br>
              </div>  
  <div align="left">
-<input   type="button"   name="button"  onclick="this.form.action='expattendancestudent.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+<input   type="button"  class="btn btn-success"  name="button"  onclick="this.form.action='expattendancestudent.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
 
    </div>            
            
 									</div>
                                     
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
 													<th scope="col">#</th>
                                                     <th scope="col">Дата занятия</th> 
                                                     <th scope="col">Студент</th> 
+                                                    <th scope="col">Преподаватель</th> 
                                                     <th scope="col">Предмет</th> 
                                                     <th scope="col">Посещаемость</th>
                                                     <th scope="col">Причина</th>       
@@ -256,9 +257,9 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 				echo "<tr>";
 ?>
 				<td>
-                <label>
-				<input type="radio" name="arrattendance[]" value=<? echo $f["idattendance"];?>  <? if ($i==0)  echo "checked=checked";?>>
-				<span></span>
+                <label class="form-radio-input">
+				<input class="form-radio-input" type="radio" name="arrattendance[]" value=<? echo $f["idattendance"];?>  <? if ($i==0)  echo "checked=checked";?>>
+				<span class="form-radio-sign"></span>
                 </label>
                </td>
         <?
@@ -266,6 +267,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 				echo "
 				<td> $f[datestudy]</td>				
 				<td> $f[student]</td>		
+				<td> $f[teacher]</td>
 				<td> $f[subject]</td>	
 				<td> $f[attendance]</td>
 				<td> $f[cause]</td>	
@@ -289,14 +291,14 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
                                                
                 </div>
-				<footer>
-					<div  >
-						<nav>
-							<ul>
+				<footer class="footer">
+					<div class="container-fluid"  >
+						<nav class="pull-left">
+							<ul class="nav">
 
 							</ul>
 						</nav>
-						<div>
+						<div class="copyright ml-auto">
 							 &copy; <? echo Date("Y");?>,  Все права защищены
 						</div>				
 					</div>
