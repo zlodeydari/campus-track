@@ -74,10 +74,26 @@ if ($permission=="Декан")
 						</li>
 
 
-			
+			<li class="nav-item">
+							<a href="performancedean.php">
+								<i class="la la-history"></i>
+								
+								<p>Успеваемость</p>
+								        
+
+							</a>
+						</li>
 
 
-			
+			<li class="nav-item">
+							<a href="attendancedean.php">
+								<i class="la la-paper-plane"></i>
+								
+								<p>Посещаемость</p>
+								        
+
+							</a>
+						</li>
 
 			
 
