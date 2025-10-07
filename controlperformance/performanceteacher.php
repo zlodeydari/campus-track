@@ -296,6 +296,11 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 	</div>
 </div>
 
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
 </body>
 
 
