@@ -19,7 +19,6 @@ if (isset($idstudy)) {
     <!-- Подключение стилей Bootstrap и темы -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/ready.css">
-<style>@media(max-width:991px){.sidebar{transform:none!important;position:static!important;width:100%}.sidebar .sidebar-wrapper{width:100%;padding-top:0;max-height:none}.main-panel{width:100%;margin-left:0}}</style>
 </head>
 <body>
 <?
@@ -68,11 +67,29 @@ if (($value2 != "Все") and ($filter == 1))
 // Выполнение запроса
 $r = mysqli_query($dbcnx, $s);
 ?>
-    <? require "menu.php"; ?>
-<main>
-<form name="form2" method="post">
-                            <div>
-                                <div>Посещаемость</div>
+    <div class="wrapper">
+        <!-- Шапка сайта и меню -->
+        <div class="main-header">
+            <div class="logo-header">
+                <a href="#" class="logo"><? echo $permission;?></a>
+                <!-- Кнопки навигации -->
+                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+            </div>
+            
+        </div>
+
+        <? require "menu.php"; // Подключение бокового меню ?>
+
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <form name="form2" method="post">
+                            <div class="card-header">
+                                <div class="card-title">Посещаемость</div>
                                 <div align="right">	
                                     <!-- Выбор поля для сортировки -->
                                     
@@ -124,12 +141,12 @@ $r = mysqli_query($dbcnx, $s);
                                     
                                     <!-- Кнопка экспорта/печати -->
                                     <div align="left">
-                                        <input type="button" name="button" onclick="this.form.action='expattendancedean.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+                                        <input type="button" class="btn btn-success" name="button" onclick="this.form.action='expattendancedean.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
                                     </div>            
                                 </div>  
                                 
-                                <div>
-                                    <table>
+                                <div class="card-body">
+                                    <table class="table table-head-bg-success">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -147,10 +164,10 @@ $r = mysqli_query($dbcnx, $s);
                                             echo "<tr>";
                                             ?>
                                             <td>
-                                                <label>
+                                                <label class="form-radio-input">
                                                     <!-- Радио-кнопка для выбора записи (например, для редактирования) -->
-                                                    <input type="radio" name="arrattendance[]" value=<? echo $f["idattendance"];?> <? if (!isset($checked)) { echo "checked=checked"; $checked=true; } ?>>
-                                                    <span></span>
+                                                    <input class="form-radio-input" type="radio" name="arrattendance[]" value=<? echo $f["idattendance"];?> <? if (!isset($checked)) { echo "checked=checked"; $checked=true; } ?>>
+                                                    <span class="form-radio-sign"></span>
                                                 </label>
                                             </td>
                                             <?
@@ -169,7 +186,22 @@ $r = mysqli_query($dbcnx, $s);
                                     </table>
                                 </div>
                             </div>
-                        </form>
-</main>
+                        </form>	            
+                    </div>
+                </div>
+            </div>     
+            
+        </div>
+    </div>
+</div>
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
 </body>
+<!-- Подключение JavaScript библиотек -->
+
+
+
 </html>

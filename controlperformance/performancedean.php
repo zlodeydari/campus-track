@@ -12,7 +12,6 @@ $menugroup=6;
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="assets/css/ready.css">
 	<link rel="stylesheet" href="assets/css/demo.css">
-<style>@media(max-width:991px){.sidebar{transform:none!important;position:static!important;width:100%}.sidebar .sidebar-wrapper{width:100%;padding-top:0;max-height:none}.main-panel{width:100%;margin-left:0}}</style>
 </head>
 <body>
 <?
@@ -68,13 +67,37 @@ if ($value2!="Все") /*есть ли фильтрация данных*/
 $r=mysqli_query($dbcnx,$s);
 
 	 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+
+<?
+require "menu.php";//файл с меню
+?>
+
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				<div class="card">
+                     
 <form name="form2"  method="post"  >
 
 								
-									<div>
-										<div>Перечень успеваемости</div>         
+									<div class="card-header">
+										<div class="card-title">Перечень успеваемости</div>         
      		<div align="right">	
 
 				  
@@ -143,12 +166,12 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
 
 
-    <input  type="button"  name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='expperformancedean.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+    <input  type="button" class="btn btn-success"  name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='expperformancedean.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
 		<th scope="col">&nbsp;</th>      
@@ -173,9 +196,9 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 
 ?>			 
 				<td>
-                <label>
-				<input type="radio" name="arrperformance[]" value=<? echo $f["idperformance"];?>  <? if (($i==0) || ($f["idperformance"]==$idperformance))  echo "checked=checked";?>>
-				<span> <? echo $f["idperformance"];?></span>
+                <label class="form-radio-input">
+				<input class="form-radio-input" type="radio" name="arrperformance[]" value=<? echo $f["idperformance"];?>  <? if (($i==0) || ($f["idperformance"]==$idperformance))  echo "checked=checked";?>>
+				<span class="form-radio-sign"> <? echo $f["idperformance"];?></span>
                 </label>
                 </td>			
 				<?
@@ -194,7 +217,39 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 										
 									</div>
 
-      </form>
-</main>
+      </form>	            
+           								</div>
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
