@@ -29,8 +29,8 @@ $sort   = $_GET["sort"];   // Режим сортировки
 // Получение значений из формы
 $value1 = $_POST['FilterValue1']; // Студент
 $value2 = $_POST['FilterValue2']; // Преподаватель
-$value3 = "Все"; // Предмет
-$value4 = "Все"; // Статус посещаемости
+$value3 = $_POST['FilterValue3']; // Предмет
+$value4 = $_POST['FilterValue4']; // Статус посещаемости
 
 // === 2. ЛОГИКА СБРОСА ИЛИ ПРИМЕНЕНИЯ ФИЛЬТРОВ ===
 if ($filter == 0) {
@@ -59,7 +59,14 @@ if (($value1 != "Все") and ($filter == 1))
 if (($value2 != "Все") and ($filter == 1)) 
     $s .= " and study.idteacher = $value2 ";
 
+if (($value3 != "Все") and ($filter == 1)) 
+    $s .= " and study.idsubject = $value3 ";
+
+if (($value4 != "Все") and ($filter == 1)) 
+    $s .= " and attendance like '$value4' ";
+
 // Обязательный фильтр по периоду дат
+$s .= " and datestudy>='$date1' and datestudy<='$date2' ";
 
 // === 4. ЛОГИКА СОРТИРОВКИ ===
 
@@ -125,13 +132,29 @@ $r = mysqli_query($dbcnx, $s);
 
                                     <!-- Фильтр: Предмет (заполняется из БД) -->
                                     &nbsp;&nbsp;Предмет: 
-                                    
+                                    <select name="FilterValue3">	
+                                        <option value="Все" selected=selected> Все</option>			
+                                        <?
+                                        $d = mysqli_query($dbcnx,"select * from subject");
+                                        while ($m = mysqli_fetch_array($d)) {
+                                            echo "<option value=".$m['idsubject'];
+                                            if ($m['idsubject'] == $value3) echo " selected=selected";
+                                            echo ">".$m["subject"]."</option>";	 		
+                                        }
+                                        ?>				
+                                    </select>
 
                                     <!-- Фильтр: Статус присутствия -->
                                     &nbsp;&nbsp;Присутствие: 
-                                    
+                                    <select name="FilterValue4">	
+                                        <option value="Все" selected=selected> Все</option>			
+                                        <option value="Присутствовал" <? if ($value4=='Присутствовал') {echo "selected=selected";}?>> Присутствовал</option>	
+                                        <option value="Отсутствовал" <? if ($value4=='Отсутствовал') {echo "selected=selected";}?>> Отсутствовал</option>					
+                                    </select>
 
                                     <!-- Выбор периода дат -->
+                                    с:<input name="date1" value="<? echo "$date1";?>" type="date">
+                                    по:<input name="date2" type="date" value="<? echo "$date2";?>" >
 
                                     <br>
                                     <!-- Кнопки управления формой -->
