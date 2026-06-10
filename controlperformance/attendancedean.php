@@ -69,7 +69,14 @@ if (($value4 != "Все") and ($filter == 1))
 $s .= " and datestudy>='$date1' and datestudy<='$date2' ";
 
 // === 4. ЛОГИКА СОРТИРОВКИ ===
-
+if ($sort == 1) {
+    // Сортировка по выбранному полю
+    $fieldsort = $_POST['sortname'];
+    $s .= " order by $fieldsort";
+} else {
+    // Сортировка по умолчанию
+    $s .= " order by student";
+}
 
 // Выполнение запроса
 $r = mysqli_query($dbcnx, $s);
@@ -99,8 +106,11 @@ $r = mysqli_query($dbcnx, $s);
                                 <div class="card-title">Посещаемость</div>
                                 <div align="right">	
                                     <!-- Выбор поля для сортировки -->
-                                    
-                                       
+                                    Сортировка:
+                                    <select name="sortname" style="height:22; width:auto" onChange="this.form.action='attendancedean.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();">
+                                        <option value="student" <? if ($fieldsort=="student") {?> selected="selected" <? }?>>Студент </option>
+                                        <option value="attendance" <? if ($fieldsort=="attendance") {?> selected="selected" <? }?>>Посещаемость </option>
+                                    </select>   
 
                                     <!-- Фильтр: Студент (заполняется из БД) -->
                                     &nbsp;&nbsp;Студент: 

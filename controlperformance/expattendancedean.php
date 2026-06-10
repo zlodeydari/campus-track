@@ -53,7 +53,13 @@ $s="SELECT *  from study, attendance, student, teacher, subject where study.idst
 
 $s=$s." and datestudy>='$date1' and datestudy<='$date2' ";
 
-
+if ($sort==1)/*есть ли сортировка данных*/
+{
+$fieldsort = $_POST['sortname'];//первое поле
+$s=$s." order by $fieldsort";
+}
+else
+$s=$s." order by student";
 
 $r=mysqli_query($dbcnx,$s);
 
