@@ -92,7 +92,30 @@ $r = mysqli_query($dbcnx, $s);
                 </button>
                 <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
             </div>
-            
+            <nav class="navbar navbar-header navbar-expand-lg">
+                <div class="container-fluid">
+                    <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> 
+                                <span><? echo $usersystem;?></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <div class="user-box">
+                                        <div class="u-text">
+                                            <h4><? echo $usersystem;?></h4>
+                                            <p class="text-muted"><? echo $permission;?></p>
+                                            <p class="text-muted"><? echo $mail;?></p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="index.php?step=2"><i class="fa fa-power-off"></i> Выход</a>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
 
         <? require "menu.php"; // Подключение бокового меню ?>
@@ -185,6 +208,7 @@ $r = mysqli_query($dbcnx, $s);
                                                 <th scope="col">#</th>
                                                 <th scope="col">Дата занятия</th> 
                                                 <th scope="col">Студент</th> 
+                                                <th scope="col">Преподаватель</th> 
                                                 <th scope="col">Предмет</th> 
                                                 <th scope="col">Посещаемость</th>
                                                 <th scope="col">Причина</th>       
@@ -208,6 +232,7 @@ $r = mysqli_query($dbcnx, $s);
                                             echo "
                                             <td> $f[datestudy]</td>				
                                             <td> $f[student]</td>		
+                                            <td> $f[teacher]</td>
                                             <td> $f[subject]</td>	
                                             <td> $f[attendance]</td>
                                             <td> $f[cause]</td>	
@@ -223,18 +248,19 @@ $r = mysqli_query($dbcnx, $s);
                     </div>
                 </div>
             </div>     
-            
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="copyright ml-auto">
+                        &copy; <? echo Date("Y");?>, Все права защищены
+                    </div>				
+                </div>
+            </footer>
         </div>
     </div>
 </div>
-<script src="assets/js/core/jquery.3.2.1.min.js"></script>
-<script src="assets/js/core/popper.min.js"></script>
-<script src="assets/js/core/bootstrap.min.js"></script>
-<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-<script src="assets/js/ready.min.js"></script>
 </body>
 <!-- Подключение JavaScript библиотек -->
-
-
-
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
 </html>
