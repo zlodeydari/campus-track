@@ -90,8 +90,11 @@ $r=mysqli_query($dbcnx,$s);
  <table border=1>
 											<thead>
 												<tr>
+		<th scope="col">Дата оценки</th>                             
+		<th scope="col">Тип контроля</th>
 		<th scope="col">Студент</th>		 
 		<th scope="col">Предмет</th>
+		<th scope="col">Преподаватель</th>	
   		<th scope="col">Оценка</th> 
           
             
@@ -115,8 +118,11 @@ $r=mysqli_query($dbcnx,$s);
 		
 				<?
 				echo "
+				<td> ".$f['dateperformance']."</td>	
+				<td> ".$f['control']."</td>
 				<td> ".$f['student']."</td>		
 				<td> ".$f['subject']."</td>				
+				<td> ".$f['teacher']."</td>			
 				<td> ".$f['performance']."</td>						
 				";		
 											
