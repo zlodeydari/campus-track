@@ -54,6 +54,12 @@ $alert=$alert."Введите данные в поле 'Специальност
 
 
 
+if ( (strlen ($spec)>$longstring)  ) 
+$error=1;
+
+if (strlen ($spec)>$longstring)
+$alert=$alert."Введите корректные данные (<$longstring) в поле 'Специальность'! <br>";
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;

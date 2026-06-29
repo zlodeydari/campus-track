@@ -2278,10 +2278,31 @@ body {
   margin-right: 5px;
 }
 
-.main-panel { width: calc(100% - 210px); float: right; background: #f2f3f8; }
-.main-panel .content { padding: 20px; margin-top: 55px; }
-.footer { padding: 15px; background: #fff; border-top: 1px solid #eee; }
-.footer .container-fluid { display: flex; align-items: center; }
+.main-panel {
+  position: relative;
+  width: calc(100% - 210px);
+  min-height: 100%;
+  float: right;
+  background: #f2f3f8;
+}
+.main-panel .content {
+  padding: 30px 15px;
+  min-height: calc(100% - 123px);
+  margin-top: 55px;
+}
+
+.footer {
+  border-top: 1px solid #eee;
+  padding: 15px;
+  background: #ffffff;
+  position:absolute;
+  width:100%;
+  bottom:0;
+}
+.footer .container-fluid {
+  display: flex;
+  align-items: center;
+}
 
 .la, .la-stack {
   display: inline-block;

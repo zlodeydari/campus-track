@@ -54,6 +54,12 @@ $alert=$alert."Введите данные в поле 'Предмет'! <br>";
 
 
 
+if ( (strlen ($subject)>$longstring)  ) 
+$error=1;
+
+if (strlen ($subject)>$longstring)
+$alert=$alert."Введите корректные данные (<$longstring) в поле 'Предмет'! <br>";
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;

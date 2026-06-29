@@ -45,6 +45,12 @@ $alert=$alert."Введите данные в поле 'Студент'! <br>";
 
 
 
+if ( (strlen ($student)>$longstring)  ) 
+$error=1;
+
+if (strlen ($student)>$longstring)
+$alert=$alert."Введите корректные данные (<$longstring) в поле 'Студент'! <br>";
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;

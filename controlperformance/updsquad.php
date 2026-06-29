@@ -44,6 +44,12 @@ $alert=$alert."Введите данные в поле 'Группа'! <br>";
 
 
 
+if ( (strlen ($squad)>$longstring)  ) 
+$error=1;
+
+if (strlen ($squad)>$longstring)
+$alert=$alert."Введите корректные данные (<$longstring) в поле 'Группа'! <br>";
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;
