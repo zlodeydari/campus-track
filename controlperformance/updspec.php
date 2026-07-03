@@ -60,6 +60,19 @@ $error=1;
 if (strlen ($spec)>$longstring)
 $alert=$alert."Введите корректные данные (<$longstring) в поле 'Специальность'! <br>";
 
+$s="select * from spec where spec='".trim($spec)."'";
+if ($upd==1)
+	$s=$s." and idspec!=$id";
+
+$SET_spec=mysqli_query($dbcnx,$s);
+$COUNT_spec=mysqli_num_rows($SET_spec);
+
+if ($COUNT_spec!=0)
+{
+	$error=1;
+	$alert=$alert."Специальность уже существует! <br>";
+} 
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;

@@ -50,6 +50,20 @@ $error=1;
 if (strlen ($squad)>$longstring)
 $alert=$alert."Введите корректные данные (<$longstring) в поле 'Группа'! <br>";
 
+$s="select * from squad where squad='".trim($squad)."'";
+if ($upd==1)
+	$s=$s." and idsquad!=$id";
+
+$SET_squad=mysqli_query($dbcnx,$s);
+$COUNT_squad=mysqli_num_rows($SET_squad);
+
+if ($COUNT_squad!=0)
+{
+	$error=1;
+	$alert=$alert."Группа уже существует! <br>";
+} 
+
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;

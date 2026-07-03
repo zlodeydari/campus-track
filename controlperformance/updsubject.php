@@ -60,6 +60,19 @@ $error=1;
 if (strlen ($subject)>$longstring)
 $alert=$alert."Введите корректные данные (<$longstring) в поле 'Предмет'! <br>";
 
+$s="select * from subject where subject='".trim($subject)."'";
+if ($upd==1)
+	$s=$s." and idsubject!=$id";
+
+$SET_subject=mysqli_query($dbcnx,$s);
+$COUNT_subject=mysqli_num_rows($SET_subject);
+
+if ($COUNT_subject!=0)
+{
+	$error=1;
+	$alert=$alert."Предмет уже существует! <br>";
+} 
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;

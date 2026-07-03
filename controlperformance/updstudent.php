@@ -51,6 +51,32 @@ $error=1;
 if (strlen ($student)>$longstring)
 $alert=$alert."Введите корректные данные (<$longstring) в поле 'Студент'! <br>";
 
+$s="select * from student where student='".trim($student)."'";
+if ($upd==1)
+	$s=$s." and idstudent!=$id";
+
+$SET_student=mysqli_query($dbcnx,$s);
+$COUNT_student=mysqli_num_rows($SET_student);
+
+if ($COUNT_student!=0)
+{
+	$error=1;
+	$alert=$alert."Студент уже существует! <br>";
+} 
+
+$s="select * from student where ticket='".trim($ticket)."'";
+if ($upd==1)
+	$s=$s." and idstudent!=$id";
+
+$SET_student=mysqli_query($dbcnx,$s);
+$COUNT_student=mysqli_num_rows($SET_student);
+
+if ($COUNT_student!=0)
+{
+	$error=1;
+	$alert=$alert."Билет уже существует! <br>";
+} 
+
 if ($error==1)
 {
 $alert="Ошибка ввода данных!<br>".$alert;
