@@ -95,7 +95,15 @@ if ($permission=="Декан")
 							</a>
 						</li>
 
-			
+			<li class="nav-item">
+							<a href="controldean.php">
+								<i class="la la-hourglass"></i>
+								
+								<p>Контроль</p>
+								        
+
+							</a>
+						</li>
 
 
 <?
