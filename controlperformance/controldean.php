@@ -107,6 +107,7 @@ $r=mysqli_query($dbcnx,$s);
 
  <div align="right">
 
+    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean1.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
@@ -136,6 +137,80 @@ $r=mysqli_query($dbcnx,$s);
 
 ?>			 
 		
+				<?
+				echo "
+				<td> ".$f['student']."</td>	
+				<td> ".$f['subject']."</td>				
+				<td> ".$f['performance']."</td>														
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+</table>
+										
+									
+
+
+
+
+
+
+
+<br><br>
+
+
+
+
+
+
+<?
+$s="SELECT performance.*, control, teacher, student, subject FROM performance, control, teacher, student, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher and performance=3 and control like 'Экзамен'";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+if ($value1!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and idsquad= $value1 ";	
+
+$s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
+}
+
+$r=mysqli_query($dbcnx,$s);	
+?>
+<div>Перечень троечников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
+
+ <div align="right">
+
+    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean2.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+   </div>            
+           
+									</div>
+									<div>
+										<table >
+											<thead>
+												<tr>    
+		<th scope="col">Студент</th>		 
+		<th scope="col">Предмет</th>
+  		<th scope="col">Оценка</th> 
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+			
 				<?
 				echo "
 				<td> ".$f['student']."</td>	
