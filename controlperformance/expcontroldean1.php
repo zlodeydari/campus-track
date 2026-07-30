@@ -15,7 +15,35 @@ $date=date("Y")."-".date("m")."-".date("d");
 <br>
 
 <?
+$filter=$_GET["filter"];//считывание параметра фильтра
+$sort=$_GET["sort"];//считывание параметра фильтра		
+
+if ($filter==0)/*есть ли фильтрация данных*/
+{
+$value1 = "Все"; 
+$date1=(date("Y")-1)."-".date("m")."-".date("d");    
+$date2=(date("Y")+1)."-".date("m")."-".date("d");    
+}
+else
+{
+$date1=$_POST['date1'];    
+$date2=$_POST['date2'];    
+ 
+$value1 = $_POST['FilterValue1'];//значение первого поля
+}
+
+
+
 $s="SELECT performance.*, control, teacher, student, subject FROM performance, control, teacher, student, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher and performance=2 and control like 'Экзамен'";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+if ($value1!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and idsquad= $value1 ";	
+
+$s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
+}
+
 $r=mysqli_query($dbcnx,$s);
 
 
