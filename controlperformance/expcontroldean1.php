@@ -54,14 +54,51 @@ $r=mysqli_query($dbcnx,$s);
 <font  size="+1" >   Перечень двоечников от <? echo $date;?>  </font> 
 
  
- <ol>
-<?
-for ($i=0; $i<mysqli_num_rows($r); $i++) {
-    $row=mysqli_fetch_array($r);
-    echo "<li>".implode(" — ", array($row['dateperformance'], $row['control'], $row['student'], $row['subject'], $row['teacher'], $row['performance']))."</li>";
-}
-?>
-</ol>
+ <table border=1>
+											<thead>
+												<tr>
+		<th scope="col">Дата оценки</th>                             
+		<th scope="col">Тип контроля</th>
+		<th scope="col">Студент</th>		 
+		<th scope="col">Предмет</th>
+		<th scope="col">Преподаватель</th>	
+  		<th scope="col">Оценка</th> 
+          
+            
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+		
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+		
+				<?
+				echo "
+				<td> ".$f['dateperformance']."</td>	
+				<td> ".$f['control']."</td>
+				<td> ".$f['student']."</td>	
+				<td> ".$f['subject']."</td>				
+				<td> ".$f['teacher']."</td>			
+				<td> ".$f['performance']."</td>					
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+										</table>
 
        
 
