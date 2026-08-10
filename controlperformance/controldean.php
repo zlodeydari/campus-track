@@ -225,6 +225,147 @@ $r=mysqli_query($dbcnx,$s);
 </tbody>
 </table>
 
+
+
+
+
+
+
+<br><br>
+
+
+
+
+<?
+$s="SELECT DISTINCT student, ticket FROM performance, control, teacher, student, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher and performance=4 and control like 'Экзамен' and student.idstudent not in (select idstudent from performance where performance<4 and idcontrol =1 )";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+if ($value1!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and idsquad= $value1 ";	
+
+$s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
+}
+
+$r=mysqli_query($dbcnx,$s);	
+?>
+<div>Перечень ударников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
+
+ <div align="right">
+
+    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean3.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+   </div>            
+           
+									</div>
+									<div>
+										<table >
+											<thead>
+												<tr>    
+
+		<th scope="col">Студент</th>		 
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+			
+				<?
+				echo "
+				<td> ".$f['student']."</td>		
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br>
+
+
+
+
+<?
+$s="SELECT DISTINCT student, ticket FROM performance, control, teacher, student, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher and performance=5 and control like 'Экзамен' and student.idstudent not in (select idstudent from performance where performance<5 and idcontrol =1 )";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+if ($value1!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and idsquad= $value1 ";	
+
+$s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
+}
+
+$r=mysqli_query($dbcnx,$s);	
+?>
+<div>Перечень отличников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
+
+ <div align="right">
+
+    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean4.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+   </div>            
+           
+									</div>
+									<div>
+										<table >
+											<thead>
+												<tr>    
+
+		<th scope="col">Студент</th>		 
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+			
+				<?
+				echo "
+				<td> ".$f['student']."</td>		
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+</table>
+
 </div>
 
       </form>
