@@ -366,6 +366,85 @@ $r=mysqli_query($dbcnx,$s);
 </tbody>
 </table>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br>
+
+
+
+
+<?
+$s="SELECT student, ticket, ROUND(AVG(performance), 2) as avgperformance FROM performance, control, student where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and control like 'Экзамен' ";
+	
+if ($filter==1)/*есть ли фильтрация данных*/
+{
+if ($value1!="Все") /*есть ли фильтрация данных*/
+ $s=$s." and idsquad= $value1 ";	
+
+$s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
+}
+$s=$s." GROUP BY student, ticket ORDER BY avgperformance DESC";
+
+$r=mysqli_query($dbcnx,$s);	
+?>
+<div>Средний балл</div>       
+
+ <div align="right">
+
+    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean5.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+   </div>            
+           
+									</div>
+									<div>
+										<table >
+											<thead>
+												<tr>    
+
+		<th scope="col">Студент</th>		 
+  		<th scope="col">Средний балл</th>
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+			
+				<?
+				echo "
+				<td> ".$f['student']."</td>		
+				<td> ".$f['avgperformance']."</td>
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+</table>
+
 </div>
 
       </form>
