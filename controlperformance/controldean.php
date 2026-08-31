@@ -12,7 +12,6 @@ $menugroup=8;
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="assets/css/ready.css">
 	<link rel="stylesheet" href="assets/css/demo.css">
-<style>@media(max-width:991px){.sidebar{transform:none!important;position:static!important;width:100%}.sidebar .sidebar-wrapper{width:100%;padding-top:0;max-height:none}.main-panel{width:100%;margin-left:0}}</style>
 </head>
 <body>
 <?
@@ -46,12 +45,36 @@ $value1 = $_POST['FilterValue1'];//значение первого поля
 }
 
 ?>
-	<? require "menu.php"; ?>
-<main>
+	<div class="wrapper">
+		<div class="main-header">
+			<div class="logo-header">
+				<a href="#" class="logo">
+					<? echo $permission;?>
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+			</div>
+			
+			</div>
+
+<?
+require "menu.php";//файл с меню
+?>
+
+			<div class="main-panel">
+				<div class="content">
+					<div class="container-fluid">
+
+                    
+                   
+				<div class="card">
+       <br>                  
 <form name="form2"  method="post"  >
 
 								
-									<div>
+									<div class="card-header">
   
      		<div align="right">	
 
@@ -103,16 +126,16 @@ $s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
 
 $r=mysqli_query($dbcnx,$s);	
 ?>
-<div>Перечень двоечников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
+<div class="card-title">Перечень двоечников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
 
  <div align="right">
 
-    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean1.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+    <input  type="button" class="btn btn-success"  name="button4"  onclick="this.form.action='expcontroldean1.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
 		<th scope="col">Студент</th>		 
@@ -179,16 +202,16 @@ $s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
 
 $r=mysqli_query($dbcnx,$s);	
 ?>
-<div>Перечень троечников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
+<div class="card-title">Перечень троечников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
 
  <div align="right">
 
-    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean2.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+    <input  type="button" class="btn btn-success"  name="button4"  onclick="this.form.action='expcontroldean2.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>    
 		<th scope="col">Студент</th>		 
@@ -249,16 +272,16 @@ $s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
 
 $r=mysqli_query($dbcnx,$s);	
 ?>
-<div>Перечень ударников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
+<div class="card-title">Перечень ударников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
 
  <div align="right">
 
-    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean3.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+    <input  type="button" class="btn btn-success"  name="button4"  onclick="this.form.action='expcontroldean3.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>    
 
@@ -323,16 +346,16 @@ $s=$s." and dateperformance>='$date1' and dateperformance<='$date2' ";
 
 $r=mysqli_query($dbcnx,$s);	
 ?>
-<div>Перечень отличников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
+<div class="card-title">Перечень отличников. Общее количество: <? echo mysqli_num_rows($r);?></div>       
 
  <div align="right">
 
-    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean4.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+    <input  type="button" class="btn btn-success"  name="button4"  onclick="this.form.action='expcontroldean4.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>    
 
@@ -400,16 +423,16 @@ $s=$s." GROUP BY student, ticket ORDER BY avgperformance DESC";
 
 $r=mysqli_query($dbcnx,$s);	
 ?>
-<div>Средний балл</div>       
+<div class="card-title">Средний балл</div>       
 
  <div align="right">
 
-    <input  type="button"  name="button4"  onclick="this.form.action='expcontroldean5.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+    <input  type="button" class="btn btn-success"  name="button4"  onclick="this.form.action='expcontroldean5.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
    </div>            
            
 									</div>
-									<div>
-										<table >
+									<div class="card-body">
+										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>    
 
@@ -447,7 +470,39 @@ $r=mysqli_query($dbcnx,$s);
 
 </div>
 
-      </form>
-</main>
+      </form>	            
+           								</div>
+
+					</div>
+				</div>     
+                <div>
+
+                                               
+                </div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
