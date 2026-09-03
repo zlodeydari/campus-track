@@ -68,14 +68,45 @@ $r=mysqli_query($dbcnx,$s);
 <font  size="+1" >   Средний балл от <? echo $date;?>  </font> 
 
  
- <ol>
-<?
-for ($i=0; $i<mysqli_num_rows($r); $i++) {
-    $row=mysqli_fetch_array($r);
-    echo "<li>".implode(" — ", array($row['student'], $row['ticket'], $row['avgperformance']))."</li>";
-}
-?>
-</ol>
+ <table border=1>
+											<thead>
+												<tr>
+		<th scope="col">Студент</th>		 
+  		<th scope="col">Билет</th> 
+  		<th scope="col">Средний балл</th>
+          
+            
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+		
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+		
+				<?
+				echo "
+				<td> ".$f['student']."</td>		
+				<td> ".$f['ticket']."</td>	
+				<td> ".str_replace('.', ',', $f['avgperformance'])."</td>				
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+										</table>
 
        
 

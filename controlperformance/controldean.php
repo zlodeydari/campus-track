@@ -138,8 +138,11 @@ $r=mysqli_query($dbcnx,$s);
 										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>
+		<th scope="col">Дата оценки</th>                             
+		<th scope="col">Тип контроля</th>
 		<th scope="col">Студент</th>		 
 		<th scope="col">Предмет</th>
+		<th scope="col">Преподаватель</th>	
   		<th scope="col">Оценка</th> 
 
                                        			        
@@ -162,8 +165,11 @@ $r=mysqli_query($dbcnx,$s);
 		
 				<?
 				echo "
+				<td> ".$f['dateperformance']."</td>	
+				<td> ".$f['control']."</td>
 				<td> ".$f['student']."</td>	
 				<td> ".$f['subject']."</td>				
+				<td> ".$f['teacher']."</td>			
 				<td> ".$f['performance']."</td>														
 				";		
 											
@@ -214,8 +220,11 @@ $r=mysqli_query($dbcnx,$s);
 										<table class="table table-head-bg-success" >
 											<thead>
 												<tr>    
+		<th scope="col">Дата оценки</th>                             
+		<th scope="col">Тип контроля</th>
 		<th scope="col">Студент</th>		 
 		<th scope="col">Предмет</th>
+		<th scope="col">Преподаватель</th>	
   		<th scope="col">Оценка</th> 
 
                                        			        
@@ -236,8 +245,11 @@ $r=mysqli_query($dbcnx,$s);
 			
 				<?
 				echo "
+				<td> ".$f['dateperformance']."</td>	
+				<td> ".$f['control']."</td>
 				<td> ".$f['student']."</td>	
 				<td> ".$f['subject']."</td>				
+				<td> ".$f['teacher']."</td>			
 				<td> ".$f['performance']."</td>														
 				";		
 											
@@ -286,6 +298,7 @@ $r=mysqli_query($dbcnx,$s);
 												<tr>    
 
 		<th scope="col">Студент</th>		 
+  		<th scope="col">Билет</th> 
 
                                        			        
                                                     </tr>
@@ -306,6 +319,7 @@ $r=mysqli_query($dbcnx,$s);
 				<?
 				echo "
 				<td> ".$f['student']."</td>		
+				<td> ".$f['ticket']."</td>														
 				";		
 											
 				echo "</tr>";
@@ -360,6 +374,7 @@ $r=mysqli_query($dbcnx,$s);
 												<tr>    
 
 		<th scope="col">Студент</th>		 
+  		<th scope="col">Билет</th> 
 
                                        			        
                                                     </tr>
@@ -380,6 +395,7 @@ $r=mysqli_query($dbcnx,$s);
 				<?
 				echo "
 				<td> ".$f['student']."</td>		
+				<td> ".$f['ticket']."</td>														
 				";		
 											
 				echo "</tr>";
@@ -437,6 +453,7 @@ $r=mysqli_query($dbcnx,$s);
 												<tr>    
 
 		<th scope="col">Студент</th>		 
+  		<th scope="col">Билет</th> 
   		<th scope="col">Средний балл</th>
 
                                        			        
@@ -458,6 +475,7 @@ $r=mysqli_query($dbcnx,$s);
 				<?
 				echo "
 				<td> ".$f['student']."</td>		
+				<td> ".$f['ticket']."</td>														
 				<td> ".$f['avgperformance']."</td>
 				";		
 											
