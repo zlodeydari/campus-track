@@ -3,12 +3,25 @@ require "option.php";//файл с параметрами подключения
 date_default_timezone_set("Europe/Moscow");
 $date=date("Y")."-".date("m")."-".date("d");   
 
+	header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename=Перечень двоечников от '.$date.'.xls');
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0'); 
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');   
 
 
  	?>				   
 		
 <html >
-<head><meta charset="utf-8"><title>Ведомость</title></head>
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title><? echo $permission;?></title>
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
 <body>
 
 
