@@ -86,14 +86,49 @@ $r=mysqli_query($dbcnx,$s);
 <font  size="+1" >   Перечень занятий от <? echo $date;?>  </font> 
 
  
- <ol>
-<?
-for ($i=0; $i<mysqli_num_rows($r); $i++) {
-    $row=mysqli_fetch_array($r);
-    echo "<li>".implode(" — ", array($row['datestudy'], $row['category'], $row['squad'], $row['subject'], $row['teacher']))."</li>";
-}
-?>
-</ol>
+ <table border=1>
+											<thead>
+												<tr>
+		<th scope="col">Дата занятий</th>                             
+		<th scope="col">Тип занятия</th>
+		<th scope="col">Группа</th>		 
+		<th scope="col">Предмет</th>
+		<th scope="col">Преподаватель</th>	  
+          
+            
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+		
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+		
+				<?
+				echo "
+				<td> ".$f['datestudy']."</td>	
+				<td> ".$f['category']."</td>		
+				<td> ".$f['squad']."</td>
+				<td> ".$f['subject']."</td>				
+				<td> ".$f['teacher']."</td>				
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+										</table>
 
        
 

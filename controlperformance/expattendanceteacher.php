@@ -82,14 +82,51 @@ $r=mysqli_query($dbcnx,$s);
 <font  size="+1" >   Перечень успеваемости от <? echo $date;?>  </font> 
 
  
- <ol>
-<?
-for ($i=0; $i<mysqli_num_rows($r); $i++) {
-    $row=mysqli_fetch_array($r);
-    echo "<li>".implode(" — ", array($row['datestudy'], $row['student'], $row['teacher'], $row['subject'], $row['attendance'], $row['cause']))."</li>";
-}
-?>
-</ol>
+ <table border=1>
+											<thead>
+												<tr>
+                                                    <th scope="col">Дата занятия</th> 
+                                                    <th scope="col">Студент</th> 
+                                                    <th scope="col">Преподаватель</th> 
+                                                    <th scope="col">Предмет</th> 
+                                                    <th scope="col">Посещаемость</th>
+                                                    <th scope="col">Причина</th>       
+          
+            
+
+                                       			        
+                                                    </tr>
+											</thead>
+											<tbody>
+        
+        
+      <?
+		 
+		
+
+			for ($i=0;$i<mysqli_num_rows($r);$i++)//вывод данных в цикле по количеству записей
+			  {
+				$f=mysqli_fetch_array($r);//считывание текующей записи				
+				echo "<tr>";
+
+?>			 
+		
+				<?
+				echo "
+				<td> $f[datestudy]</td>				
+				<td> $f[student]</td>		
+				<td> $f[teacher]</td>
+				<td> $f[subject]</td>	
+				<td> $f[attendance]</td>
+				<td> $f[cause]</td>				
+				";		
+											
+				echo "</tr>";
+			  }		 
+		?>
+      
+</tbody>
+										</table>
 
        
 
