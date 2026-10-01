@@ -43,7 +43,7 @@ $date2=(date("Y")+1)."-".date("m")."-".date("d");
 }
 
 
-$s="SELECT performance.*, control, teacher, student, subject FROM performance, control, teacher, student, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher ";
+$s="SELECT performance.*, control, teacher, student, subject FROM performance, control, teacher, student LEFT JOIN squad ON squad.idsquad=student.idsquad, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher ";
 	
 if ($filter==1)/*есть ли фильтрация данных*/
 {
@@ -54,6 +54,10 @@ $value1 = $_POST['FilterValue1'];//значение первого поля
 $value2 = $_POST['FilterValue2'];//значение первого поля
 $value3 = $_POST['FilterValue3'];//значение первого поля
 $value4 = $_POST['FilterValue4'];//значение первого поля
+$value5 = isset($_POST['FilterValue5']) ? $_POST['FilterValue5'] : "Все";
+
+if ($value5!="Все")
+ $s=$s." and student.idsquad=".(int)$value5." ";
 
 if ($value1!="Все") /*есть ли фильтрация данных*/
  $s=$s." and performance.idstudent= $value1 ";	

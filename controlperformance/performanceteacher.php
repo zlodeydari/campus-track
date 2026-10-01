@@ -29,6 +29,7 @@ exit;
 
 $filter=$_GET["filter"];//считывание параметра фильтра
 $sort=$_GET["sort"];//считывание параметра фильтра		
+$value5 = "Все";
 
 if ($filter==0)/*есть ли фильтрация данных*/
 {
@@ -41,7 +42,7 @@ $date2=(date("Y")+1)."-".date("m")."-".date("d");
 }
 
 
-$s="SELECT performance.*, control, teacher, student, subject FROM performance, control, teacher, student, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher ";
+$s="SELECT performance.*, control, teacher, student, subject FROM performance, control, teacher, student LEFT JOIN squad ON squad.idsquad=student.idsquad, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher ";
 	
 if ($filter==1)/*есть ли фильтрация данных*/
 {
@@ -52,6 +53,10 @@ $value1 = $_POST['FilterValue1'];//значение первого поля
 $value2 = $_POST['FilterValue2'];//значение первого поля
 $value3 = $_POST['FilterValue3'];//значение первого поля
 $value4 = $_POST['FilterValue4'];//значение первого поля
+$value5 = isset($_POST['FilterValue5']) ? $_POST['FilterValue5'] : "Все";
+
+if ($value5!="Все")
+ $s=$s." and student.idsquad=".(int)$value5." ";
 
 if ($value1!="Все") /*есть ли фильтрация данных*/
  $s=$s." and performance.idstudent= $value1 ";	
@@ -143,6 +148,7 @@ require "menu.php";//файл с меню
 Сортировка:
 				<select name="sortname"  style="height:22; width:auto" onChange="this.form.action='performanceteacher.php?sort=1&filter=<? echo $filter;?>'; this.form.submit();" >  
 					<option value="dateperformance DESC"  <? if ($fieldsort=="dateperformance DESC") {?> selected="selected" <? }?>>Дата оценки </option>	        
+					<option value="squad.squad" <? if ($fieldsort=="squad.squad") {?> selected="selected" <? }?>>Группа</option>
 					<option value="student"  <? if ($fieldsort=="student") {?> selected="selected" <? }?>>Тип контроля </option>	
 					<option value="control"  <? if ($fieldsort=="control") {?> selected="selected" <? }?>>Студент </option>		                    		                                 
 					<option value="subject"  <? if ($fieldsort=="subject") {?> selected="selected" <? }?>>Предмет </option>							                
@@ -193,6 +199,21 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 ?>		
  
  </select>                                       
+
+&nbsp;Группа:
+<select name="FilterValue5">
+<option value="Все" <? if ($value5=="Все") {?> selected="selected" <? }?>>Все</option>
+<?
+$d=mysqli_query($dbcnx,"select * from squad order by squad");
+while ($m=mysqli_fetch_array($d))
+{
+ echo '<option value="'.(int)$m['idsquad'].'"';
+ if ((string)$m['idsquad']==(string)$value5)
+  echo ' selected="selected"';
+ echo '>'.htmlspecialchars($m['squad'], ENT_QUOTES, 'UTF-8').'</option>';
+}
+?>
+</select>
 
 &nbsp;Предмет: 
 			
