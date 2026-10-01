@@ -175,10 +175,11 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
  <div align="left">
  <input  type="button" class="btn btn-success"  name="button4"    onclick="this.form.action='updstudent.php?upd=0&step=1'; this.form.submit();" value="Добавить">
  <input  type="button" class="btn btn-success"   name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='updstudent.php?upd=1&step=1'; this.form.submit();" value="Редактирование"> 
+  <input  type="button" class="btn btn-success"  name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='expstudent.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
  <input  class="btn btn-danger"  type="button"  name="button" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>  onclick="qwest=window.confirm('Вы действительно хотите удалить запись?');  if (qwest) {this.form.action='delstudent.php'; this.form.submit();}" value="Удалить">    
 
 
-    <input  type="button" class="btn btn-success"  name="button4" <? if (mysqli_num_rows($r)==0) {?>    disabled="disabled"<? }?>   onclick="this.form.action='expstudent.php?sort=<? echo $sort;?>&filter=<? echo $filter;?>'; this.form.submit();" value="Печать ведомости"> 
+   
    </div>            
            
 									</div>
