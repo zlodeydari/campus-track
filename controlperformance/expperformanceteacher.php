@@ -43,7 +43,7 @@ $date2=(date("Y")+1)."-".date("m")."-".date("d");
 }
 
 
-$s="SELECT performance.*, control, teacher, student, subject FROM performance, control, teacher, student LEFT JOIN squad ON squad.idsquad=student.idsquad, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher ";
+$s="SELECT performance.*, control, teacher, student, subject, squad.squad AS squad FROM performance, control, teacher, student LEFT JOIN squad ON squad.idsquad=student.idsquad, subject where control.idcontrol=performance.idcontrol and performance.idstudent=student.idstudent and performance.idsubject=subject .idsubject and performance.idteacher=teacher.idteacher ";
 	
 if ($filter==1)/*есть ли фильтрация данных*/
 {
@@ -96,7 +96,8 @@ $r=mysqli_query($dbcnx,$s);
 												<tr>
 		<th scope="col">Дата оценки</th>                             
 		<th scope="col">Тип контроля</th>
-		<th scope="col">Студент</th>		 
+		<th scope="col">Студент</th>
+		<th scope="col">Группа</th>
 		<th scope="col">Предмет</th>
 		<th scope="col">Преподаватель</th>	
   		<th scope="col">Оценка</th> 
@@ -124,7 +125,8 @@ $r=mysqli_query($dbcnx,$s);
 				echo "
 				<td> ".$f['dateperformance']."</td>	
 				<td> ".$f['control']."</td>
-				<td> ".$f['student']."</td>		
+				<td> ".$f['student']."</td>
+				<td> ".htmlspecialchars((string)$f['squad'], ENT_QUOTES, 'UTF-8')."</td>
 				<td> ".$f['subject']."</td>				
 				<td> ".$f['teacher']."</td>			
 				<td> ".$f['performance']."</td>						
