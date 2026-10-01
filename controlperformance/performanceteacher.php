@@ -159,7 +159,7 @@ require "menu.php";//файл с меню
 
 &nbsp;Тип контроля: 
 			
-<select  name="FilterValue1"   >	
+<select  name="FilterValue2"   >
 <option value="Все" selected=selected> Все</option>			
  <?
   
@@ -180,7 +180,7 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
                             
 &nbsp;Студент: 
 			
-<select  name="FilterValue2"   >	
+<select  name="FilterValue1"   >
 <option value="Все" selected=selected> Все</option>		
   <?
   
@@ -261,7 +261,6 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 по:<input   name="date2"   type="date"  value="<? echo "$date2";?>" >
 
 				<br>
-				<input  type="button"  name="button1"  onclick="this.form.action='performanceteacher.php?filter=1&sort=<? echo $sort;?>'; this.form.submit();"   value="Фильтр">
 				<input  type="button"  name="button2"  onclick="this.form.action='performanceteacher.php?filter=0&sort=<? echo $sort;?>'; this.form.submit();"   value="Очистить">
            <br>            
         </div>   
@@ -373,6 +372,30 @@ for ($i=0;$i<mysqli_num_rows($d);$i++)
 <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <script src="assets/js/ready.min.js"></script>
 <script>
+	function applyPerformanceFilters(form) {
+		if (!form.checkValidity() || !form.elements.date1.value || !form.elements.date2.value) {
+			return;
+		}
+		form.action = 'performanceteacher.php?filter=1&sort=1';
+		form.submit();
+	}
+
+	$('form[name="form2"]').on('change', 'select[name^="FilterValue"]', function () {
+		applyPerformanceFilters(this.form);
+	});
+
+	$('form[name="form2"]').on('focusout keydown', 'input[name="date1"], input[name="date2"]', function (event) {
+		if (event.type === 'keydown') {
+			if (event.key !== 'Enter') {
+				return;
+			}
+			event.preventDefault();
+		}
+		if (this.value !== this.defaultValue) {
+			applyPerformanceFilters(this.form);
+		}
+	});
+
 	$('#displayNotif').on('click', function(){
 		var placementFrom = $('#notify_placement_from option:selected').val();
 		var placementAlign = $('#notify_placement_align option:selected').val();
